@@ -1,0 +1,50 @@
+LazyLoad.js([
+"/umbraco/lib/jquery/jquery.min.js?d=638277835650000000",
+"/umbraco/lib/jquery-ui/jquery-ui.min.js?d=638277835650000000",
+"/umbraco/lib/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js?d=638277835650000000",
+"/umbraco/lib/angular/angular.min.js?d=638277835650000000",
+"/umbraco/lib/underscore/underscore-min.js?d=638277835650000000",
+"/umbraco/lib/moment/moment.min.js?d=638277835650000000",
+"/umbraco/lib/flatpickr/flatpickr.min.js?d=638277835650000000",
+"/umbraco/lib/animejs/anime.min.js?d=638277835650000000",
+"/umbraco/lib/angular-route/angular-route.min.js?d=638277835650000000",
+"/umbraco/lib/angular-cookies/angular-cookies.min.js?d=638277835650000000",
+"/umbraco/lib/angular-aria/angular-aria.min.js?d=638277835650000000",
+"/umbraco/lib/angular-touch/angular-touch.min.js?d=638277835650000000",
+"/umbraco/lib/angular-sanitize/angular-sanitize.min.js?d=638277835650000000",
+"/umbraco/lib/angular-animate/angular-animate.min.js?d=638277835650000000",
+"/umbraco/lib/angular-messages/angular-messages.min.js?d=638277835650000000",
+"/umbraco/lib/angular-ui-sortable/sortable.min.js?d=638277835650000000",
+"/umbraco/lib/angular-dynamic-locale/tmhDynamicLocale.min.js?d=638277835650000000",
+"/umbraco/lib/ng-file-upload/ng-file-upload.min.js?d=638277835650000000",
+"/umbraco/lib/angular-local-storage/angular-local-storage.min.js?d=638277835650000000",
+"/umbraco/lib/chart.js/Chart.min.js?d=638277835650000000",
+"/umbraco/lib/angular-chart.js/angular-chart.min.js?d=638277835650000000",
+"/umbraco/lib/wicg-inert/dist/inert.min.js?d=638277835650000000",
+"/umbraco/lib/umbraco/Extensions.js?d=638277835650000000",
+"/umbraco/lib/umbraco/NamespaceManager.js?d=638277835650000000",
+"/umbraco/lib/umbraco/LegacySpeechBubble.js?d=638277835650000000",
+"/umbraco/js/utilities.min.js?d=638277835650000000",
+"/umbraco/js/app.min.js?d=638277835650000000",
+"/umbraco/js/umbraco.resources.min.js?d=638277835650000000",
+"/umbraco/js/umbraco.directives.min.js?d=638277835650000000",
+"/umbraco/js/umbraco.filters.min.js?d=638277835650000000",
+"/umbraco/js/umbraco.services.min.js?d=638277835650000000",
+"/umbraco/js/umbraco.interceptors.min.js?d=638277835650000000",
+"/umbraco/js/umbraco.controllers.min.js?d=638277835650000000",
+"/umbraco/js/routes.min.js?d=638277835650000000",
+"/umbraco/js/init.min.js?d=638277835650000000",
+"/App_Plugins/uSync/usync.9.4.0.min.js?d=638277835650000000"], function () {
+    //we need to set the legacy UmbClientMgr path
+    if ((typeof UmbClientMgr) !== "undefined") {
+        UmbClientMgr.setUmbracoPath('/umbraco');
+    }
+
+    jQuery(document).ready(function () {
+
+        angular.bootstrap(document, ['umbraco']);
+
+    });
+});
+
+LazyLoad.css('/App_Plugins/uSync/usync.9.4.0.min.css?d=638277835650000000');

@@ -1,0 +1,39 @@
+﻿@inherits UmbracoViewPage
+@using System.Threading
+@{
+    var currentLanguage = Thread.CurrentThread.CurrentCulture.ToString();
+    var cssRTL = "";
+    if (currentLanguage == "he")
+    {
+        cssRTL = "text-rtl"; 
+    }
+    var site = Model.Root().Children.Where(item => item.ContentType.Alias.ToLower() == "contactlessmenu").FirstOrDefault();
+    var selection = site.Children.Where(x=> x.ContentType.Alias.ToLower() == "faq").FirstOrDefault();
+}
+<style>
+    .text-rtl
+    {
+        text-align:right;
+    }
+</style>
+@if (selection != null)
+{
+    <section class="p-t-b-25px @cssRTL ">
+        <div class="container faq-container">
+            <div class="row p-15-px m-t-15-px justify-content-center">
+                <div class="col-md-12 text-center">
+                    <h2 class="faq-title">@selection.Value("fAQtitle")</h2>
+                    <h4 class="faqSdescription faq-description">@selection.Value("faqSmallDescription")</h4> 
+                </div>
+
+                @foreach (var faq in selection.Children)
+                {
+                    <div class="col-md-5 padding-faq row--shadow--box m-r-lg-15px white-bg faq-question-card" style="margin-bottom:10px">
+                        <h5 class="faq-question-title">@faq.Value("questionText")</h5>
+                        <h6 class="faq-question-text">@faq.Value("answerQuestion")</h6>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+}

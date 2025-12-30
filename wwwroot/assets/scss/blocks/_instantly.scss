@@ -1,0 +1,27 @@
+.instantly {
+
+    & .container {
+        @include mobile {
+            display: contents;
+        }
+    }
+    & .column {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 50px 20px 76px;
+        background-color: var(--color-white);
+
+        @include mobile {
+            padding: 50px 20px;
+        }
+    }
+
+    & .button {
+        margin-top: 40px;
+
+        @include mobile {
+            margin-top: 20px;
+        }
+    }
+}

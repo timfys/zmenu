@@ -1,0 +1,47 @@
+//width main container
+$container: 1200;
+
+:root {
+
+    /*colors*/
+    --color-black: #000000;
+    --color-black-alt: #1C1C1C;
+    --color-text: #444444;
+    --color-white: #ffffff;
+    --color-gray: #F4F4F5;
+    --color-gray-dark: #a7a7b1;
+
+    --color-accent: #E64231;
+    --color-accent-alt: #aa1808;
+
+
+
+
+    --color-transparent: transparent;
+    --color-shadow: rgba(22, 28, 45, 0.05);
+    /*colors*/
+
+    /*border*/
+    --border: 2px solid var(--color-black);
+    --border-radius: 12px;
+    --border-radius-small: 8px;
+    --border-radius-large: 24px;
+    /*border*/
+
+    /*body*/
+    --font-family-base: "Montserrat", sans-serif;
+
+    --container-width: #{$container}px;
+    --container-padding-x: 20px;
+
+    --section-padding-y: 60px;
+    /*body*/
+
+    /*button*/
+    --input-height: 54px;
+    --button-height: 54px;
+    --icon-button-height: 24px;
+
+    --transition-duration: 0.3s;
+    /*button*/
+}

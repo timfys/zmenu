@@ -1,0 +1,13 @@
+﻿@using Umbraco.Cms.Core.Templates
+@using Umbraco.Cms.Web.Common.DependencyInjection
+@model dynamic
+@{
+    var htmlLocalLinkParser = StaticServiceProvider.Instance.GetService<HtmlLocalLinkParser>();
+    var htmlUrlParser = StaticServiceProvider.Instance.GetService<HtmlUrlParser>();
+    var htmlImageSourceParser = StaticServiceProvider.Instance.GetService<HtmlImageSourceParser>();
+
+    var value = htmlLocalLinkParser.EnsureInternalLinks(Model.value.ToString());
+    value = htmlUrlParser.EnsureUrls(value);
+    value = htmlImageSourceParser.EnsureImageSources(value);
+}
+@Html.Raw(value)

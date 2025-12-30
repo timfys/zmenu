@@ -1,0 +1,46 @@
+.payment {
+    padding-block: 155px;
+    background-color: var(--color-white);
+
+    @include tablet {
+        padding-block: 60px;
+    }
+
+    @include mobile {
+        padding-block: 0px;
+        background-color: transparent;
+    }
+
+    & h2 {
+        margin-bottom: 20px;
+
+        @include tablet {
+            margin: 0;
+            order: -1;
+        }
+    }
+
+    & p {
+
+        @include tablet {
+            margin: 0;
+
+        }
+    }
+
+    & .row {
+        justify-content: space-around;
+
+        @include tablet {
+            flex-direction: column;
+            gap: 14px;
+        }
+    }
+
+    & .column {
+
+        @include tablet {
+            display: contents;
+        }
+    }
+}

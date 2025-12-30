@@ -1,0 +1,10 @@
+@media (max-width: 760px) {
+  body .header_elements .logo_wrapper {
+    margin: 0 auto 0 0;
+  }
+}
+body .digital_menu_body_wrapper .digital_menu_body_content .pagination_wrapper {
+  direction: ltr !important;
+}
+
+/*# sourceMappingURL=DigitalMenuRTL.css.map */

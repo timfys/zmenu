@@ -1,0 +1,124 @@
+﻿@inherits UmbracoViewPage
+@using System.Threading
+@using Menu4Tech.Helper
+@{
+  var currentLanguage = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
+  var cssRTL = "";
+  var cssPDrl = "pr-0";
+  if (currentLanguage == "he")
+  {
+    cssRTL = "rtl-footer";
+    cssPDrl = "pl-0";
+  }
+
+  var media = Umbraco.MediaAtRoot();
+
+  var whatsUpIconUrl = media.Where(x => x.Name.Equals("WhatsApp.svg")).First().Url();
+  var FaceBookIconUrl = media.Where(x => x.Name.Equals("Facebook.svg")).First().Url();
+  var YouTubeIconUrl = media.Where(x => x.Name.Equals("Youtube.svg")).First().Url();
+  //1191 WhatsUpp
+  //1192 FaceBook
+  //1193 YouTube
+}
+
+
+
+<footer class="footer @cssRTL">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__item">
+          <a class="footer__logo" href="#">
+            <img src="/assets/images/footer.svg" alt="">
+          </a>
+        </div>
+        <div class="footer__item">
+          <nav class="footer__nav" role="navigation">
+            <ul class="footer__list">
+              <li class="menu-item menu-item-has-children">
+                <a href="#">@Umbraco.GetDictionaryValue("Solutions")</a>
+              </li>
+              <li class="menu-item">
+                <a href="@Html.Raw(TranslationHelper.OverridePathWithCurrentCulture("/Restaurant-Pos-System"))">@Umbraco.GetDictionaryValue("POS For Restaurants")</a>
+              </li>
+              <li class="menu-item">
+                <a href="#">@Umbraco.GetDictionaryValue("For Retail")</a>
+              </li>
+              <li class="menu-item">
+                <a href="#">@Umbraco.GetDictionaryValue("For Hotels")</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div class="footer__item">
+          <nav class="footer__nav" role="navigation">
+            <ul class="footer__list">
+              <li class="menu-item">
+                <a href="#">@Umbraco.GetDictionaryValue("Opportunities") </a>
+              </li>
+              <li class="menu-item">
+                <a href="#">@Umbraco.GetDictionaryValue("Affiliates")</a>
+              </li>
+              <li class="menu-item">
+                <a href="https://www.zmenu.net/blog/@Html.Raw(currentLanguage)/page/jobs" target="_blank">@Umbraco.GetDictionaryValue("Jobs")</a>
+              </li>
+              <li class="menu-item">
+                <a href="https://www.zmenu.net/blog/@Html.Raw(currentLanguage)/page/pos-prices" target="_blank">@Umbraco.GetDictionaryValue("Prices")</a>
+              </li>
+              <li class="menu-item">
+                <a href="https://www.zmenu.net/blog/@Html.Raw(currentLanguage)/page/contactus" target="_blank">@Umbraco.GetDictionaryValue("Contact us")</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div class="footer__item">
+          <h5 class="footer__title">@Umbraco.GetDictionaryValue("Contacts")</h5>
+          <a class="footer__link" href="mailto:sales@zmenu.net">
+            <svg width="23" height="18" viewBox="0 0 23 18" fill="none"
+                 xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M1.83337 4L9.99829 9.71544C10.6595 10.1783 10.9901 10.4097 11.3496 10.4993C11.6673 10.5785 11.9995 10.5785 12.3171 10.4993C12.6767 10.4097 13.0073 10.1783 13.6685 9.71544L21.8334 4M6.63337 17H17.0334C18.7135 17 19.5536 17 20.1953 16.673C20.7598 16.3854 21.2188 15.9265 21.5064 15.362C21.8334 14.7202 21.8334 13.8802 21.8334 12.2V5.8C21.8334 4.11984 21.8334 3.27976 21.5064 2.63803C21.2188 2.07354 20.7598 1.6146 20.1953 1.32698C19.5536 1 18.7135 1 17.0334 1H6.63337C4.95322 1 4.11314 1 3.4714 1.32698C2.90692 1.6146 2.44797 2.07354 2.16035 2.63803C1.83337 3.27976 1.83337 4.11984 1.83337 5.8V12.2C1.83337 13.8802 1.83337 14.7202 2.16035 15.362C2.44797 15.9265 2.90692 16.3854 3.4714 16.673C4.11314 17 4.95322 17 6.63337 17Z"
+                stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            sales@zmenu.net
+          </a>
+          <ul class="social__list">
+            <li class="social__item">
+              <a href="https://www.facebook.com/zmenu.net/" target="_blank">
+                <img src="/assets/images/icons/facebook.svg" alt="facebook">
+              </a>
+            </li>
+            <li class="social__item">
+              <a href="https://wa.me/97235603536?text=Hello%20I%27m%20interested%20in%20your%20POS%20system" target="_blank">
+                <img src="/assets/images/icons/whatsapp.svg" alt="whatsapp">
+              </a>
+            </li>
+            <li class="social__item">
+              <a href="#">
+                <img src="/assets/images/icons/chat.svg" alt="chat">
+              </a>
+            </li>
+          </ul>
+          <a href="https://crm.zmenu.net/" target="_blank" class="button button--accent">@Umbraco.GetDictionaryValue("Manage my restaurant")</a>
+        </div>
+
+      </div>
+      <div class="copy">
+        <p>© @Html.Raw(DateTime.UtcNow.Year) @Umbraco.GetDictionaryValue("Zmenu. All rights reserved.")</p>
+        <a href="#">@Umbraco.GetDictionaryValue("Privacy policy")</a>
+        <a href="#">@Umbraco.GetDictionaryValue("Conditions")</a>
+      </div>
+    </div>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-2403722-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+
+      gtag('js', new Date());
+      gtag('config', 'UA-2403722-1');
+    </script>
+</footer>
+

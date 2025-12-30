@@ -1,0 +1,95 @@
+﻿@using System.Threading
+@inherits UmbracoViewPage
+@{
+    //var styleBg = " style=\"background-image: url('{0}')\"";
+    var media = Umbraco.MediaAtRoot();
+
+    var banners = media.Where(x => x.Name.Equals("Banners")).First();
+
+    var BigBanner = banners.Children.Where(x => x.Name.Equals("Banner")).First();
+    var middleBanner = banners.Children.Where(x => x.Name.Equals("Banner_2x")).First();
+    var SmallBanner = banners.Children.Where(x => x.Name.Equals("Banner_3x")).First();
+    var RTLbanner = banners.Children.Where(x => x.Name.Equals("Banner-5")).First();
+
+    var BigBannerUrl = BigBanner.Url(); //1204
+    var middleBannerUrl = middleBanner.Url(); //1211
+    var SmallBannerUrl = SmallBanner.Url(); //1212
+    var RTLbannerUrl = RTLbanner.Url(); // 1230
+    var currentLanguage = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
+    var cssRTL = "";
+    if (currentLanguage == "he")
+    {
+        cssRTL = "rtl-banner";
+    }
+    var url = new Uri("https://" + Context.Request.Host.Value + Context.Request.Path);
+    var lang = currentLanguage == "en" ? "" : "/" + currentLanguage;
+    var port = url.IsDefaultPort ? "" : ":" + url.Port;
+    var loginPage = $"/login?t=1";
+}
+<style>
+    .banner-bg
+    {
+        background-image: url('@BigBannerUrl');
+        background-repeat: no-repeat;
+        background-size: 100% auto;
+    }
+    .rtl-banner #carouselBanner
+    {
+        background-image: url('@RTLbannerUrl');
+        background-repeat: no-repeat;
+        background-size: 100% auto;
+        transform:unset!important;
+    }
+    .rtl-banner #carouselBanner * 
+    {
+        transform:unset!important;
+    }
+    @Html.Raw('@')media(max-width:992px)
+    {
+        .banner-bg
+        {
+            background-image: url('@middleBannerUrl');
+            background-position: right 0px top 0px ;
+            background-repeat: no-repeat;
+            background-color:white;
+            background-size: 100% auto;
+        }
+       
+    }
+    @Html.Raw('@')media(max-width:765px)
+    {
+        .banner-bg
+        {
+            background-image: url('@SmallBannerUrl');
+            background-position: right 0px top 0px ;
+            background-repeat: no-repeat;
+            background-color:white;
+            background-size: 100% auto;
+        }
+       
+    }
+</style>
+<section class="mainbanner main-ptop @cssRTL">
+    <div id="carouselBanner" class="carousel slide carousel-fade banner-bg" data-ride="carousel" data-interval="15000">
+        <img src="@SmallBannerUrl" class="d-block d-sm-block d-md-none d-lg-none" style="visibility:hidden; width:100%; height:auto;"/>
+        <img src="@middleBanner.Url()" class="d-none d-sm-none d-md-block d-lg-none" style="visibility:hidden; width:100%; height:auto;"/>
+        <img src="@(BigBannerUrl)" class="d-none d-sm-none d-md-none d-lg-block" style="visibility:hidden; width:100%; height:auto;"/>
+        <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+                <!--<div class="carousel-overlay"></div>-->
+                <div class="wrap-mobile">
+                    <div class="carousel-caption">
+                        @Html.Raw(Umbraco.GetDictionaryValue("Banner-Menu4u-MainText"))
+                        <h4>@Umbraco.GetDictionaryValue("Banner-Menu4u-smallText")</h4>
+                    </div>
+                    <!--<hr class="wrap-line" />-->
+                    <div class="wrap-btn">
+                        <a href='@Html.Raw(lang + loginPage)' class="button-blue button-blue-header">@Umbraco.GetDictionaryValue("Create your menu")</a>
+                        <a href='/blog/@(currentLanguage)/category/Contactless-menu' class="button-banner-underline-blue">@Umbraco.GetDictionaryValue("Button-UserGuid")</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

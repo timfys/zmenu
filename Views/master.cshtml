@@ -1,0 +1,142 @@
+﻿@using Menu4Tech.Helper
+@using System.Threading
+@inherits UmbracoViewPage
+@{
+    Layout = null;
+    var currentLanguage = Thread.CurrentThread.CurrentCulture.ToString();
+    var currentISOLanguage = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
+    var dirRTL = "";
+    var cssRTL = "";
+    if (currentLanguage == "he")
+    {
+        dirRTL = " dir='rtl' ";
+        cssRTL = " rtl-master ";
+    }
+
+    var fullPath = $"https://{Context.Request.Host.Value}";
+    var path = Context.Request.Path.Value;
+    
+    if (path.Contains("/he/"))
+    {
+        path = path.Replace("/he/", "{lang}/");
+    }else if (path.Contains("/he"))
+    {
+        path = path.Replace("/he", "{lang}/");
+    }else if (path.Contains("/ru/"))
+    {
+        path = path.Replace("/ru/", "{lang}/");
+    }else if (path.Contains("/ru"))
+    {
+        path = path.Replace("/ru", "{lang}/");
+    }
+    else
+    {
+        path = $"{{lang}}{Context.Request.Path.Value}";
+    }
+    fullPath += path;
+    
+    var timeSpan = DateTime.Now.Ticks.ToString();
+    var shareImageFB = "https://www.mekashron.com/assets/img/img-share-fb.jpg";
+    var shareImageTwitter = "https://www.mekashron.com/assets/img/img-share-twitter.jpg";
+    Cooking.SetCookie("current_culture", currentISOLanguage.Replace("en", ""));
+}
+
+<!doctype html>
+<html @Html.Raw(dirRTL) lang='@currentLanguage'>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    @{
+        var pageTitle = Model.Value<string>("title");
+        if (string.IsNullOrWhiteSpace(pageTitle))
+        {
+            pageTitle = Model.Name;
+            if (pageTitle == "Pos For A Retailers") pageTitle = "Retail POS System | Zmenu – Cloud Retail Point of Sale in 20 Minutes";
+        }
+    }
+    <title>@pageTitle</title>
+    <meta name="description" content="@Model.Value("MetaDescription") ">
+    <meta property="og:title" content="@pageTitle">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="@Model.Value("shareUrl")">
+    <meta property="og:image" content="@Model.Value("shareImageFB")">
+    <meta property="og:description" content="@Model.Value("MetaDescription")">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="www.menu4u.tech">
+    <meta name="twitter:title" content='@Model.Value("title")'>
+    <meta name="twitter:description" content="@Model.Value("MetaDescription") ">
+    <meta name="twitter:creator" content="@Model.Value("creator")">
+    <meta name="twitter:image" content="@Model.Value("shareImageTwitter")">
+    <meta name="author" content="@Model.Value("creator")">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="theme-color" content="#00aeef"/>
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="icon" href="/assets/img/logo.svg" type="image/x-icon">
+    <link rel="stylesheet" href="/css/CssLibs.css"/>
+    <link rel="apple-touch-icon" href="/assets/img/logo.svg">
+
+    <meta http-equiv="Cache-Control: max-age=31536000" content="public">
+    <link type="image/png" href="/assets/images/favicon.svg" rel="icon">
+    <link rel="canonical" href="@fullPath.Replace("{lang}", "")"/>
+    <link rel="alternate" href="@fullPath.Replace("{lang}", "/he")" hreflang="he"/>
+    <link rel="alternate" href="@fullPath.Replace("{lang}", "/ru")" hreflang="ru"/>
+    <link rel="stylesheet" href="/css/Custom.css"/>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet">
+    <link rel="icon" type="image/png" href="/assets/images/favicon.svg">
+    <link rel="stylesheet" href="/assets/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script src="/assets/js/jquery-3.7.1.min.js"></script>
+    <script src="/assets/js/swiper-bundle.min.js"></script>
+    <script src="/assets/js/scripts.js"></script>
+    <link rel="stylesheet" href="/assets/inteTelInput/style.css" />
+    <script src="/assets/inteTelInput/iti.js"></script>
+    <script src="/assets/inteTelInput/utils.js"></script>
+
+    @*<script>
+        if (window.location.protocol == 'http:') {
+            window.location.href = window.location.href.replace('http:', 'https:');
+        }
+    </script>*@
+    <script src="https://cdn.enable.co.il/licenses/enable-L19760o40cadymk3-0523-45594/init.js"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-X4Y1BZ9DF2"></script>
+    @Html.Raw(Model.Value("JSONLD"))
+
+</head>
+<body class="@cssRTL">
+@Html.Partial("~/Views/Partials/_Header.cshtml")
+<script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-X4Y1BZ9DF2');
+</script>
+<a href="#" id="toTopBtn" class="cd-top text-replace js-cd-top cd-top--is-visible cd-top--fade-out" data-abc="true" style="display:none"></a>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/LIbs.js"></script>
+<script src="~/Scripts/Custom.js"></script>
+@RenderBody()
+<input type="hidden" id="please-wait-text" value="@Html.Raw(Umbraco.GetDictionaryValue("Please wait"))"/>
+@if (ViewBag.IgnoreFooter is null or false)
+{
+    @Html.Partial("~/Views/Partials/_Footer.cshtml")
+}
+</body>
+@if (cssRTL == " rtl-master ")
+{
+    <script>
+
+        $(document).ready(function () {
+            $("*").each(function () {
+                if ($(this).css('text-align') == 'left')
+                    $(this).css('text-align', 'right')
+            });
+        });
+    </script>
+}
+</html>

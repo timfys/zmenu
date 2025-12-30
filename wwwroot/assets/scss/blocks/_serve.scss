@@ -1,0 +1,58 @@
+.serve {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    min-height: 420px;
+
+    @include phone {
+        color: var(--color-white);
+    }
+
+    & .row {
+
+        @include mobile {
+            flex-direction: column;
+        }
+    }
+
+    & h2 {
+        margin-bottom: 20px;
+
+        @include mobile {
+            text-align: center;
+        }
+
+        @include phone {
+            text-align: left;
+            color: var(--color-white);
+        }
+    }
+
+    & img {
+
+        @include phone {
+            display: none;
+        }
+    }
+
+    & p {
+
+        @include mobile {
+            text-align: center;
+        }
+
+        @include phone {
+            text-align: left;
+        }
+    }
+
+    & .button {
+        max-width: 328px;
+        margin: 40px auto 0;
+
+        @include phone {
+            margin: 40px 0 0;
+            max-width: 176px;
+        }
+    }
+}

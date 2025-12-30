@@ -1,0 +1,42 @@
+.support {
+    padding: 25px 0;
+
+    @include mobile {
+        padding: 0;
+    }
+
+    & .row {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 24px;
+
+        @include tablet {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px 10px;
+        }
+    }
+    
+    & h2 {
+        margin: 0;
+    }
+
+    &__item {
+        min-width: 200px;
+        @include flex-center;
+        flex-direction: column;
+        gap: 16px;
+        font-size: 18px;
+        font-weight: 600;
+
+        @include mobile {
+            min-width: auto;
+        }
+
+        & p {
+            @include tablet {
+                text-align: center;
+                max-width: 180px;
+            }
+        }
+    }
+}

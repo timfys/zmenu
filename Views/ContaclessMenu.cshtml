@@ -1,0 +1,153 @@
+﻿@inherits UmbracoViewPage
+@using System.Threading
+@using Menu4Tech.Helper
+@{
+	Layout = "master.cshtml";
+	var currentLanguage = Thread.CurrentThread.CurrentCulture.ToString();
+	var cssRTL = "";
+	if(currentLanguage == "he"){
+		cssRTL = "";
+	}
+	ViewBag.IsMobileImage = "";
+	if(UserDetailClient.IsMobileDeviceBrowser(Context))
+	{
+		ViewBag.IsMobileImage = "_mob_";
+	}
+	
+	if(currentLanguage == "he"){
+		ViewBag.PageTitle = Model.Value("pageTitle");
+		ViewBag.MetaDescription = Model.Value("metaDescription");
+	}else{
+		ViewBag.PageTitle = Model.Value("pageTitle");
+		ViewBag.MetaDescription = Model.Value("metaDescription");
+	}
+}
+<main class="main" id="primary">
+	<section class="hero">
+		<div class="container">
+			<div class="row">
+				<div class="column">
+					<h1>Create stunning digital menus <span style="color: var(--color-accent);">instantly</span>
+					</h1>
+					<p>Turn your restaurant into a modern, contactless experience with QR-code powered menus</p>
+					<ul>
+						<li>safe</li>
+						<li>simple</li>
+						<li>easy to use</li>
+					</ul>
+					<div class="buttons">
+						<a href="#" class="button button--accent">Let’s start</a>
+						<a href="#" class="button">Get Started</a>
+					</div>
+				</div>
+				<div class="column">
+					<picture>
+						<source srcset="assets/images/instantly.png" media="(max-width: 560px)">
+						<img src="assets/images/instantly.png" alt="Logo">
+					</picture>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="works">
+		<div class="container">
+			<h2>How it works</h2>
+			<ul class="works__list">
+				<li>
+					<img src="assets/images/works/work1.png" alt="">
+					<h3>Create your account</h3>
+					<p>
+						Sign up in minutes
+						and manage everything from your dashboard
+					</p>
+				</li>
+				<li>
+					<img src="assets/images/works/work2.png" alt="">
+					<h3>Build your digital menu</h3>
+					<p>
+						Add your dishes, categories,
+						and photos with our simple editor
+					</p>
+				</li>
+				<li>
+					<img src="assets/images/works/work3.png" alt="">
+					<h3>Print your QR code</h3>
+					<p>
+						Download and print, or order professional stickers from us
+					</p>
+				</li>
+				<li>
+					<img src="assets/images/works/work4.png" alt="">
+					<h3>Go contactless</h3>
+					<p>Place the QR codes on tables and let guests scan to order instantly</p>
+				</li>
+
+			</ul>
+		</div>
+	</section>
+
+	<section class="code">
+		<div class="container">
+			<ul class="code__list">
+				<li>
+					<div class="row">
+						<div class="column">
+							<h3><span>We create your QR Code</span></h3>
+							<p>
+								We generate a unique online page for your restaurant, including your digital
+								menu
+								and QR Code. You can easily update your menu at any time
+							</p>
+							<a href="#" class="button button--accent">Create your QR menu</a>
+						</div>
+						<img src="assets/images/code/code1.png" alt="">
+					</div>
+				</li>
+				<li>
+					<div class="row">
+						<div class="column">
+							<h3>Display your QR barcode</h3>
+							<p>
+								Place your QR Code on tables using stands, stickers, or table tents. Make it
+								easy for customers to scan
+							</p>
+							<div class="buttons">
+								<a href="#" class="button button--accent">Create your QR menu</a>
+								<a href="#" class="button button--white">Order table stand</a>
+							</div>
+						</div>
+						<img src="assets/images/code/code2.png" alt="">
+					</div>
+				</li>
+				<li>
+					<div class="row">
+						<div class="column">
+							<h3>Clients scan the code</h3>
+							<p>
+								Your guests scan the QR Code with their phones, and the menu instantly opens —
+								no app download needed.
+							</p>
+							<a href="#" class="button">Start free now</a>
+						</div>
+						<img src="assets/images/code/code3.png" alt="">
+					</div>
+				</li>
+			</ul>
+		</div>
+	</section>
+
+	<section class="instantly">
+		<div class="container">
+			<div class="column">
+				<h2 class="center"><span style="color: var(--color-accent);">Update</span> your menu
+					<span style="color: var(--color-accent);">instantly</span>
+				</h2>
+				<p class="center">No more printing costs — edit and publish your menu in real-time</p>
+				<a href="#" class="button button--accent">Update your menu anytime</a>
+			</div>
+		</div>
+	</section>
+</main>
+<script>
+        window.localStorage.setItem("iso", "@Html.Raw(currentLanguage)")
+</script>

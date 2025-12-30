@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="AspNetCoreHero.ToastNotification" Version="1.1.0" />
+    <PackageReference Include="ClientDependency" Version="1.9.10" />
+    <PackageReference Include="CsvHelper" Version="30.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.5" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Our.Umbraco.GMaps" Version="2.1.0" />
+    <PackageReference Include="Our.Umbraco.GMaps.Core" Version="2.1.0" />
+    <PackageReference Include="Umbraco.Cms" Version="10.2.1" />
+    <PackageReference Include="Umbraco.Cms.Core" Version="10.2.1" />
+    <PackageReference Include="Umbraco.Cms.Infrastructure" Version="10.2.1" />
+    <PackageReference Include="Umbraco.Cms.Web.Common" Version="10.2.1" />
+    <PackageReference Include="uSync" Version="10.3.0" />
+    <PackageReference Include="uSync.Complete" Version="10.3.0" />
+    <PackageReference Include="Wangkanai.Detection" Version="4.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Opt-in to app-local ICU to ensure consistent globalization APIs across different platforms -->
+    <PackageReference Include="Microsoft.ICU.ICU4C.Runtime" Version="68.2.0.9" />
+    <RuntimeHostConfigurationOption Include="System.Globalization.AppLocalIcu" Value="68.2.0.9" Condition="$(RuntimeIdentifier.StartsWith('linux')) or $(RuntimeIdentifier.StartsWith('win')) or ('$(RuntimeIdentifier)' == '' and !$([MSBuild]::IsOSPlatform('osx')))" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="wwwroot\assets\css\bootstrap-grid.css" />
+    <None Include="wwwroot\assets\css\bootstrap-grid.css.map" />
+    <None Include="wwwroot\assets\css\bootstrap-grid.min.css" />
+    <None Include="wwwroot\assets\css\bootstrap-grid.min.css.map" />
+    <None Include="wwwroot\assets\css\bootstrap-reboot.css" />
+    <None Include="wwwroot\assets\css\bootstrap-reboot.css.map" />
+    <None Include="wwwroot\assets\css\bootstrap-reboot.min.css" />
+    <None Include="wwwroot\assets\css\bootstrap-reboot.min.css.map" />
+    <None Include="wwwroot\assets\css\bootstrap.css" />
+    <None Include="wwwroot\assets\css\bootstrap.css.map" />
+    <None Include="wwwroot\assets\css\bootstrap.min.css" />
+    <None Include="wwwroot\assets\css\bootstrap.min.css.map" />
+    <None Include="wwwroot\assets\css\custom-blog.css" />
+    <None Include="wwwroot\assets\css\Custom.css" />
+    <None Include="wwwroot\assets\css\style-theme.css" />
+    <None Include="wwwroot\assets\img\logo.jpg" />
+    <None Include="wwwroot\assets\js\all.js" />
+    <None Include="wwwroot\assets\js\bootstrap.bundle.js" />
+    <None Include="wwwroot\assets\js\bootstrap.bundle.js.map" />
+    <None Include="wwwroot\assets\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\assets\js\bootstrap.bundle.min.js.map" />
+    <None Include="wwwroot\assets\js\bootstrap.js" />
+    <None Include="wwwroot\assets\js\bootstrap.js.map" />
+    <None Include="wwwroot\assets\js\bootstrap.min.js" />
+    <None Include="wwwroot\assets\js\bootstrap.min.js.map" />
+    <None Include="wwwroot\assets\js\jquery-3.5.1.js" />
+    <None Include="wwwroot\assets\js\popper.min.js" />
+    <None Include="wwwroot\Content\bootstrap-theme.css" />
+    <None Include="wwwroot\Content\bootstrap-theme.css.map" />
+    <None Include="wwwroot\Content\bootstrap-theme.min.css" />
+    <None Include="wwwroot\Content\bootstrap-theme.min.css.map" />
+    <None Include="wwwroot\Content\bootstrap.css" />
+    <None Include="wwwroot\Content\bootstrap.css.map" />
+    <None Include="wwwroot\Content\bootstrap.min.css" />
+    <None Include="wwwroot\Content\bootstrap.min.css.map" />
+    <None Include="wwwroot\Content\images\ajax-loader.gif" />
+    <None Include="wwwroot\Content\images\ajax-loader_orange.gif" />
+    <None Include="wwwroot\Content\images\Rolling-1s-200px.gif" />
+    <None Include="wwwroot\Content\Site.css" />
+    <None Include="wwwroot\media\Web.config" />
+    <None Include="wwwroot\Scripts\app.js" />
+    <None Include="wwwroot\Scripts\bootstrap-datetimepicker.min.js" />
+    <None Include="wwwroot\Scripts\bootstrap-table.js" />
+    <None Include="wwwroot\Scripts\bootstrap.bundle.js" />
+    <None Include="wwwroot\Scripts\bootstrap.bundle.js.map" />
+    <None Include="wwwroot\Scripts\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\Scripts\bootstrap.bundle.min.js.map" />
+    <None Include="wwwroot\Scripts\bootstrap.js" />
+    <None Include="wwwroot\Scripts\bootstrap.js.map" />
+    <None Include="wwwroot\Scripts\bootstrap.min.js" />
+    <None Include="wwwroot\Scripts\bootstrap.min.js.map" />
+    <None Include="wwwroot\Scripts\chart.js" />
+    <None Include="wwwroot\Scripts\common.js" />
+    <None Include="wwwroot\Scripts\Cookies.js" />
+    <None Include="wwwroot\Scripts\Custom.js" />
+    <None Include="wwwroot\Scripts\dataTables.bootstrap4.min.js" />
+    <None Include="wwwroot\Scripts\fullcalendar.min.js" />
+    <None Include="wwwroot\Scripts\hrChart.js" />
+    <None Include="wwwroot\Scripts\hrMorris.min.js" />
+    <None Include="wwwroot\Scripts\index.d.ts" />
+    <None Include="wwwroot\Scripts\index.js.flow" />
+    <None Include="wwwroot\Scripts\jquery-3.2.1.min.js" />
+    <None Include="wwwroot\Scripts\jquery-3.4.1.intellisense.js" />
+    <None Include="wwwroot\Scripts\jquery-3.4.1.js" />
+    <None Include="wwwroot\Scripts\jquery-3.4.1.min.js" />
+    <None Include="wwwroot\Scripts\jquery-3.4.1.min.map" />
+    <None Include="wwwroot\Scripts\jquery-3.4.1.slim.js" />
+    <None Include="wwwroot\Scripts\jquery-3.4.1.slim.min.js" />
+    <None Include="wwwroot\Scripts\jquery-3.4.1.slim.min.map" />
+    <None Include="wwwroot\Scripts\jquery.dataTables.min.js" />
+    <None Include="wwwroot\Scripts\jquery.fullcalendar.js" />
+    <None Include="wwwroot\Scripts\jquery.inputmask.min.js" />
+    <None Include="wwwroot\Scripts\jquery.slimscroll.js" />
+    <None Include="wwwroot\Scripts\jquery.validate-vsdoc.js" />
+    <None Include="wwwroot\Scripts\jquery.validate.js" />
+    <None Include="wwwroot\Scripts\jquery.validate.min.js" />
+    <None Include="wwwroot\Scripts\jquery.validate.unobtrusive.js" />
+    <None Include="wwwroot\Scripts\jquery.validate.unobtrusive.min.js" />
+    <None Include="wwwroot\Scripts\layout.js" />
+    <None Include="wwwroot\Scripts\LIbs.js" />
+    <None Include="wwwroot\Scripts\linq.min.js" />
+    <None Include="wwwroot\Scripts\Login.js" />
+    <None Include="wwwroot\Scripts\modernizr-2.6.2.js" />
+    <None Include="wwwroot\Scripts\modernizr-2.8.3.js" />
+    <None Include="wwwroot\Scripts\moment.min.js" />
+    <None Include="wwwroot\Scripts\morris.min.js" />
+    <None Include="wwwroot\Scripts\popper-utils.js" />
+    <None Include="wwwroot\Scripts\popper-utils.js.map" />
+    <None Include="wwwroot\Scripts\popper-utils.min.js" />
+    <None Include="wwwroot\Scripts\popper-utils.min.js.map" />
+    <None Include="wwwroot\Scripts\popper.js" />
+    <None Include="wwwroot\Scripts\popper.js.map" />
+    <None Include="wwwroot\Scripts\popper.min.js" />
+    <None Include="wwwroot\Scripts\popper.min.js.map" />
+    <None Include="wwwroot\Scripts\POSChart.js" />
+    <None Include="wwwroot\Scripts\POSMorris.js" />
+    <None Include="wwwroot\Scripts\pospaymentstypes.js" />
+    <None Include="wwwroot\Scripts\POSPrinters.js" />
+    <None Include="wwwroot\Scripts\purchase.js" />
+    <None Include="wwwroot\Scripts\purchaseNewOrder.js" />
+    <None Include="wwwroot\Scripts\raphael-min.js" />
+    <None Include="wwwroot\Scripts\README.md" />
+    <None Include="wwwroot\Scripts\select2.min.js" />
+    <None Include="wwwroot\Scripts\signup.js" />
+    <None Include="wwwroot\Scripts\TableBuilder.js" />
+    <None Include="wwwroot\Scripts\umbraco-starterkit-app.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="MetaData\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </None>
+    <None Include="umbraco\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+  <PropertyGroup>
+    <!-- Razor files are needed for the backoffice to work correctly -->
+    <CopyRazorGenerateFilesToPublishDirectory>true</CopyRazorGenerateFilesToPublishDirectory>
+  </PropertyGroup>
+  <PropertyGroup>
+    <!-- Remove RazorCompileOnBuild and RazorCompileOnPublish when not using ModelsMode InMemoryAuto -->
+    <RazorCompileOnBuild>false</RazorCompileOnBuild>
+    <RazorCompileOnPublish>false</RazorCompileOnPublish>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="System.ServiceModel.Duplex" Version="4.8.*" />
+    <PackageReference Include="System.ServiceModel.Http" Version="4.8.*" />
+    <PackageReference Include="System.ServiceModel.NetTcp" Version="4.8.*" />
+    <PackageReference Include="System.ServiceModel.Security" Version="4.8.*" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="umbraco\Data\Umbraco.sqlite.db" />
+    <Content Include="umbraco\Data\Umbraco.sqlite.db-shm" />
+    <Content Include="umbraco\Data\Umbraco.sqlite.db-wal" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.DESKTOP-52OE0LJ.20241023.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.LAPTOP-0BLC0UDE.20221024.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.LAPTOP-0BLC0UDE.20221025.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.LAPTOP-0BLC0UDE.20221026.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.LAPTOP-0BLC0UDE.20221027.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.LAPTOP-0BLC0UDE.20221028.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.LAPTOP-0BLC0UDE.20221029.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.LAPTOP-0BLC0UDE.20221031.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.LAPTOP-0BLC0UDE.20221101.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.LAPTOP-0BLC0UDE.20221102.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.LAPTOP-0BLC0UDE.20221103.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.LAPTOP-0BLC0UDE.20221104.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.LAPTOP-0BLC0UDE.20221107.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.LAPTOP-0BLC0UDE.20221202.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.LAPTOP-0BLC0UDE.20221204.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.LAPTOP-0BLC0UDE.20221205.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.LAPTOP-0BLC0UDE.20221210.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.LAPTOP-0BLC0UDE.20221211.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.LAPTOP-0BLC0UDE.20221226.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.LAPTOP-0BLC0UDE.20221227.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.LAPTOP-0BLC0UDE.20230107.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.LAPTOP-0BLC0UDE.20230108.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.LAPTOP-0BLC0UDE.20230116.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.LAPTOP-0BLC0UDE.20230117.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.LAPTOP-0BLC0UDE.20230118.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.LAPTOP-0BLC0UDE.20230531.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.LAPTOP-0BLC0UDE.20230601.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.LAPTOP-0BLC0UDE.20230614.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.LAPTOP-0BLC0UDE.20230620.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.LAPTOP-0BLC0UDE.20230628.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.LAPTOP-0BLC0UDE.20230629.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.LAPTOP-0BLC0UDE.20230703.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.LAPTOP-0BLC0UDE.20230727.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.LAPTOP-0BLC0UDE.20230802.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.LAPTOP-0BLC0UDE.20230803.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.LAPTOP-0BLC0UDE.20230804.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.LAPTOP-0BLC0UDE.20230807.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.LAPTOP-0BLC0UDE.20230808.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.LAPTOP-0BLC0UDE.20230809.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.LAPTOP-0BLC0UDE.20230821.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.LAPTOP-0BLC0UDE.20230822.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.LAPTOP-0BLC0UDE.20230824.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.WIN-33J5HKJN1K9.20230807.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.WIN-33J5HKJN1K9.20230808.json" />
+    <Content Include="umbraco\Logs\UmbracoTraceLog.WIN-33J5HKJN1K9.20230808_001.json" />
+    <Content Include="wwwroot\media\1q4ooq3l\16403439029_f500be349b_o.jpg" />
+    <Content Include="wwwroot\media\2aogw4yd\open-in-browser-24.ico" />
+    <Content Include="wwwroot\media\2gccm4eo\img-3.jpg" />
+    <Content Include="wwwroot\media\3i0d5ao1\create-1.svg" />
+    <Content Include="wwwroot\media\3ilhlacl\arrow-37-24-black.ico" />
+    <Content Include="wwwroot\media\3weesk40\whatsupp.svg" />
+    <Content Include="wwwroot\media\4e5f1hbz\frame-44-2.jpg" />
+    <Content Include="wwwroot\media\4p4ieomo\14272036539_469ca21d5c_h.jpg" />
+    <Content Include="wwwroot\media\54ifsgzp\image-2.jpg" />
+    <Content Include="wwwroot\media\affherhl\whatsupp.svg" />
+    <Content Include="wwwroot\media\b4pozlv4\contactless-1-1.svg" />
+    <Content Include="wwwroot\media\b4pozlv4\wipe-1.svg" />
+    <Content Include="wwwroot\media\bfcpbajw\logo.svg" />
+    <Content Include="wwwroot\media\c5ucueda\5852022091_87c5d045ab_b.jpg" />
+    <Content Include="wwwroot\media\edylc4fb\18531854019_351c579559_h.jpg" />
+    <Content Include="wwwroot\media\eehp5tzl\contactless-1-1.svg" />
+    <Content Include="wwwroot\media\ek1jehqr\print-4.svg" />
+    <Content Include="wwwroot\media\ek1jehqr\qr-code.svg" />
+    <Content Include="wwwroot\media\emqd1epy\facebook.svg" />
+    <Content Include="wwwroot\media\eowfv5kn\7377957524_347859faac_b.jpg" />
+    <Content Include="wwwroot\media\gdmpihfj\18530280048_459b8b61b2_h.jpg" />
+    <Content Include="wwwroot\media\ge5bi1rp\banner_2x.jpg" />
+    <Content Include="wwwroot\media\hojbzinj\contacts-24-1-black.ico" />
+    <Content Include="wwwroot\media\hsrpfr5t\img-3.jpg" />
+    <Content Include="wwwroot\media\hsrpfr5t\online-menu-step3.jpg" />
+    <Content Include="wwwroot\media\htafbscx\banner.jpg" />
+    <Content Include="wwwroot\media\htafbscx\frame-44-3.jpg" />
+    <Content Include="wwwroot\media\hzlm3fpy\banner_2x.jpg" />
+    <Content Include="wwwroot\media\iahn0ln4\print-4.svg" />
+    <Content Include="wwwroot\media\jxxnr3ly\banner-4.jpg" />
+    <Content Include="wwwroot\media\jxxnr3ly\banner-5.jpg" />
+    <Content Include="wwwroot\media\lsggvuj2\sign-up-3.svg" />
+    <Content Include="wwwroot\media\mftlnvlu\facebook.svg" />
+    <Content Include="wwwroot\media\mhyjs2ci\youtube.svg" />
+    <Content Include="wwwroot\media\ocrj2npi\create-1.svg" />
+    <Content Include="wwwroot\media\ocrj2npi\free.svg" />
+    <Content Include="wwwroot\media\osqiu5c0\banner_3x.jpg" />
+    <Content Include="wwwroot\media\pkalgtwb\banner.jpg" />
+    <Content Include="wwwroot\media\qqnprmr4\youtube.svg" />
+    <Content Include="wwwroot\media\r5cmlgc1\18095416144_44a566a5f4_h.jpg" />
+    <Content Include="wwwroot\media\rkbhhcj2\downloading-updates-24.ico" />
+    <Content Include="wwwroot\media\rten5e0n\banner-5.jpg" />
+    <Content Include="wwwroot\media\s1ndt30m\contacts-24-1k.ico" />
+    <Content Include="wwwroot\media\sgxjf55p\sign-up-3.svg" />
+    <Content Include="wwwroot\media\sgxjf55p\sign-up.svg" />
+    <Content Include="wwwroot\media\sgxjf55p\writing.svg" />
+    <Content Include="wwwroot\media\SK_Temp\14272036539_469ca21d5c_h.jpg" />
+    <Content Include="wwwroot\media\SK_Temp\16403439029_f500be349b_o.jpg" />
+    <Content Include="wwwroot\media\SK_Temp\18095416144_44a566a5f4_h.jpg" />
+    <Content Include="wwwroot\media\SK_Temp\18530280048_459b8b61b2_h.jpg" />
+    <Content Include="wwwroot\media\SK_Temp\18531852339_981b067419_h.jpg" />
+    <Content Include="wwwroot\media\SK_Temp\18531854019_351c579559_h.jpg" />
+    <Content Include="wwwroot\media\SK_Temp\18720470241_ff77768544_h.jpg" />
+    <Content Include="wwwroot\media\SK_Temp\4730684907_8a7f8759cb_b.jpg" />
+    <Content Include="wwwroot\media\SK_Temp\5852022091_87c5d045ab_b.jpg" />
+    <Content Include="wwwroot\media\SK_Temp\5852022211_9028df67c0_b.jpg" />
+    <Content Include="wwwroot\media\SK_Temp\7371127652_e01b6ab56f_b.jpg" />
+    <Content Include="wwwroot\media\SK_Temp\7373036208_30257976a0_b.jpg" />
+    <Content Include="wwwroot\media\SK_Temp\7373036290_5e8420bf36_b.jpg" />
+    <Content Include="wwwroot\media\SK_Temp\7377957524_347859faac_b.jpg" />
+    <Content Include="wwwroot\media\spbdvt5d\img-1.jpg" />
+    <Content Include="wwwroot\media\spbdvt5d\online-menu-step1.jpg" />
+    <Content Include="wwwroot\media\sppf1nfs\banner_3x.jpg" />
+    <Content Include="wwwroot\media\tu0jagy4\image-2.jpg" />
+    <Content Include="wwwroot\media\tu0jagy4\online-menu-step2.jpg" />
+    <Content Include="wwwroot\media\v53knfi0\banner-5.jpg" />
+    <Content Include="wwwroot\media\vfaptq0p\arrow-37-24.ico" />
+    <Content Include="wwwroot\media\vj2nwzvk\open-in-browser-24-black.ico" />
+    <Content Include="wwwroot\media\vx0nwi2x\4730684907_8a7f8759cb_b.jpg" />
+    <Content Include="wwwroot\media\wdijfmr2\banner.jpg" />
+    <Content Include="wwwroot\media\wjjf3jpr\logo.svg" />
+    <Content Include="wwwroot\media\wlhe3i4q\7371127652_e01b6ab56f_b.jpg" />
+    <Content Include="wwwroot\media\wvxbkqlc\logo.svg" />
+    <Content Include="wwwroot\media\xhufzl0z\18720470241_ff77768544_h.jpg" />
+    <Content Include="wwwroot\media\xjrhj3dh\18531852339_981b067419_h.jpg" />
+    <Content Include="wwwroot\media\xnri0luu\7373036290_5e8420bf36_b.jpg" />
+    <Content Include="wwwroot\media\ybsdm0bk\downloading-updates-24-black.ico" />
+    <Content Include="wwwroot\media\ylngh2mg\5852022211_9028df67c0_b.jpg" />
+    <Content Include="wwwroot\media\ys1lropy\7373036208_30257976a0_b.jpg" />
+    <Content Include="wwwroot\media\zcahyy11\img-1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\assets\css\bootstrap-grid.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\css\bootstrap-grid.css.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\css\bootstrap-grid.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\css\bootstrap-grid.min.css.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\css\bootstrap-reboot.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\css\bootstrap-reboot.css.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\css\bootstrap-reboot.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\css\bootstrap-reboot.min.css.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\css\bootstrap.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\css\bootstrap.css.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\css\bootstrap.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\css\bootstrap.min.css.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\css\custom-blog.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\css\Custom.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\css\style-theme.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\css\style.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\css\style.css.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\css\swiper-bundle.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\demo.html" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Montserrat-Black.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Montserrat-Black.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Montserrat-BlackItalic.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Montserrat-BlackItalic.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Montserrat-Bold.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Montserrat-Bold.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Montserrat-BoldItalic.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Montserrat-BoldItalic.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Montserrat-ExtraBold.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Montserrat-ExtraBold.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Montserrat-ExtraBoldItalic.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Montserrat-ExtraBoldItalic.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Montserrat-ExtraLight.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Montserrat-ExtraLight.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Montserrat-ExtraLightItalic.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Montserrat-ExtraLightItalic.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Montserrat-Italic.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Montserrat-Italic.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Montserrat-Light.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Montserrat-Light.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Montserrat-LightItalic.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Montserrat-LightItalic.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Montserrat-Medium.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Montserrat-Medium.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Montserrat-MediumItalic.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Montserrat-MediumItalic.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Montserrat-Regular.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Montserrat-Regular.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Montserrat-SemiBold.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Montserrat-SemiBold.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Montserrat-SemiBoldItalic.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Montserrat-SemiBoldItalic.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Montserrat-Thin.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Montserrat-Thin.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Montserrat-ThinItalic.woff" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\Montserrat-ThinItalic.woff2" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\stylesheet.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\code\code1.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\code\code2.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\code\code3.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\delivery.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\design.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\devices.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\favicon.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\footer.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\hero-image.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\hero-mobile.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\android.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\apple.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\arrow-down-gray.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\arrow-down.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\bars.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\burger.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\bus.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\cafe.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\chat.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\check.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\chevron-down.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\display.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\firing.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\food.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\grad.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\hotels.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\kiosk.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\lamp.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\mail.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\menu.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\Onboarding.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\restaurants.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\stat.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\Subtract.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\support.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\tg.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\user.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\videos.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\whatsapp.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\icons\windows.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\instantly.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\internet.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\logo-text.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\logo.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\members.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\payment.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\phone.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\reviews\rev-1.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\reviews\rev-2.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\reviews\rev-3.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\reviews\rev-4.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\reviews\rev-5.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\scales.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\serve-bg.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\software-m.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\software.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\works\work1.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\works\work2.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\works\work3.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\images\works\work4.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\img\logo.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\img\logo.svg" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\all.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\bootstrap.bundle.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\bootstrap.bundle.js.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\bootstrap.bundle.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\bootstrap.bundle.min.js.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\bootstrap.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\bootstrap.js.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\bootstrap.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\bootstrap.min.js.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\jquery-3.5.1.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\jquery-3.7.1.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\popper.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\scripts.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\js\swiper-bundle.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\blocks\_button-burger.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\blocks\_button.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\blocks\_code.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\blocks\_col.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\blocks\_decisions.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\blocks\_delivery.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\blocks\_design.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\blocks\_faq.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\blocks\_footer.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\blocks\_header.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\blocks\_hero.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\blocks\_instantly.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\blocks\_launch.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\blocks\_logo.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\blocks\_members.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\blocks\_navigation.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\blocks\_payment.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\blocks\_reviews.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\blocks\_serve.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\blocks\_software.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\blocks\_steps.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\blocks\_support.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\blocks\_whom.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\blocks\_working.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\blocks\_works.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\blocks\_wrap.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\style.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\_animations.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\_fonts.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\_globals.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\_media.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\_mixins.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\_normalize.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\_utils.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\scss\_veriables.scss" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Files\0\" />
+    <Folder Include="Files\252\" />
+    <Folder Include="Files\539\" />
+    <Folder Include="wwwroot\Files\272\" />
+  </ItemGroup>
+</Project>

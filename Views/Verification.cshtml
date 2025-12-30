@@ -1,0 +1,145 @@
+﻿@using Menu4Tech.Helper
+@using Menu4Tech.Models
+@inherits UmbracoViewPage
+
+@{
+    Layout = "/Views/master.cshtml";
+    var userSignInData = Cooking.GetCookie<UserSignInData>(Cooking.SignInUserData);
+}
+
+
+<div class="login-form">
+
+    <div style="display: flex; align-items: center; flex-direction: column; gap: 10px">
+        <p style="align-self: flex-start" class="main-page-header">@Umbraco.GetDictionaryValue("Sms Verification")</p>
+        <div class="login-page-phone-verification-text">
+            <p>@Umbraco.GetDictionaryValue("We send SMS to")</p>
+            <p>+@(userSignInData.PhonePrefix)@(userSignInData.Mobile)</p>
+            <a href="@(TranslationHelper.OverridePathWithCurrentCulture(Url.Action("Login", "JoinBusiness")))" onclick="RedirectToPhoneInput()">@Umbraco.GetDictionaryValue("Change")</a>
+        </div>
+        <p style="margin-top: 30px;" class="verification-page-text">@Umbraco.GetDictionaryValue("Enter 4-digit code")</p>
+        <div class="sms-code">
+            <input id="verification-code" autofocus class="code-input" style="height: fit-content !important; color: black;" required="required" type="number" value="@Context.Request.Query["vc"]" tabindex=1>
+        </div>
+        <p class="error-message" style="display: none"></p>
+        <button id="seng-again-button" style="border: 0; background: 0; margin-bottom: 0;" class="send-again">
+            <img src="/assets/images/send.svg" alt="send">
+            <p class="send_text">@Umbraco.GetDictionaryValue("Send Again")</p>
+        </button>
+        <div class="button button--accent kd-fadeIn" type="button" id="verify">@Umbraco.GetDictionaryValue("Verify")</div>
+    </div>
+</div>
+
+@if (!string.IsNullOrEmpty(Context.Request.Query["vc"]) && Context.Request.Query["vc"].First().Length == 4)
+{
+    <script>
+        document.addEventListener("DOMContentLoaded", function (){
+            document.querySelector("#verify").click();
+        })
+    </script>
+}
+
+<script>
+    function RedirectToPhoneInput(){
+        deleteCookie("@Html.Raw(Cooking.SignInUserData)");
+        deleteCookie("@Html.Raw(Cooking.LastUsedSignInIso)");
+    }
+    document.querySelector("#verification-code").oninput = function (e){
+
+        if (`${e.currentTarget.value}`.length >= 4){
+            e.currentTarget.value = e.currentTarget.value[0] + e.currentTarget.value[1] + e.currentTarget.value[2] + e.currentTarget.value[3];
+        }
+        if (`${e.currentTarget.value}`.length === 4){
+            document.querySelector("#verify").click();
+        }
+
+    }
+    
+    document.querySelector("#verify").addEventListener("click", async function(){
+
+        let verificationCodeElem = document.querySelector("#verification-code");
+        let errorElem = document.querySelector(".error-message");
+        
+        errorElem.style.color = "red";
+        
+        if (!verificationCodeElem.value){
+            verificationCodeElem.classList.remove("error");
+            errorElem.style.display = "block";
+            errorElem.textContent = "@Html.Raw(Umbraco.GetDictionaryValue("Please specify the verification code"))"
+            return;
+        }
+        
+        verificationCodeElem.classList.remove("error");
+        errorElem.style.display = "none";
+        
+        
+        let body = {
+            Country: "@Html.Raw(userSignInData.Country)",
+            Mobile: "@Html.Raw(userSignInData.Mobile)",
+            VerificationCode : verificationCodeElem.value
+        }
+        
+        DisplayLoadingScreen();
+
+        let resp = await fetch("@Html.Raw(Url.Action("TryVerifyPhone", "JoinBusinessApi"))", {
+            method: "POST",
+            body: JSON.stringify(body),
+            headers: {
+                "Content-Type": "application/json",
+                'X-Fetch-Indicator': 'true'
+            }
+        })
+
+        let result = await resp.text();
+
+        
+        if (resp.ok){
+            window.location.href = resp.headers.get("Location");
+            errorElem.style.display = "block";
+            errorElem.style.color = "green";
+            errorElem.textContent = "";
+        }else{
+            errorElem.style.display = "block";
+            errorElem.style.color = "red";
+            errorElem.textContent = result;
+        }
+
+        CloseLoadingScreen();
+    })
+    
+    document.querySelector("#seng-again-button").addEventListener("click", async function (){
+
+        DisplayLoadingScreen();
+        
+        let body = {
+            Country: "@Html.Raw(userSignInData.Country)",
+            Mobile: "@Html.Raw(userSignInData.Mobile)",
+        }
+
+        let resp = await fetch("@Html.Raw(Url.Action("SendAgain", "JoinBusinessApi"))", {
+            method: "POST",
+            body: JSON.stringify(body),
+            headers: {
+                "Content-Type": "application/json",
+                'X-Fetch-Indicator': 'true'
+            }
+        })
+
+        let result = await resp.text();
+        
+        let errorElem = document.querySelector(".error-message");
+
+        if (resp.ok){
+            errorElem.style.display = "block";
+            errorElem.style.color = "green";
+            errorElem.textContent = "";
+        }else{
+            errorElem.style.display = "block";
+            errorElem.style.color = "red";
+            errorElem.textContent = result;
+        }
+        
+        CloseLoadingScreen();
+    })
+
+</script>

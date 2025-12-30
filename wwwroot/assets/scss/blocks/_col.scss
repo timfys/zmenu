@@ -1,0 +1,25 @@
+.col {
+    & .row {
+        align-items: normal;
+
+        @include tablet {
+            flex-direction: column;
+        }
+    }
+
+    & .column {
+        padding: 24px;
+        min-height: 420px;
+        background-color: var(--color-white);
+        border-radius: var(--border-radius-large);
+
+        @include tablet { 
+            min-height: auto;
+        }
+    }
+
+    & .button {
+        max-width: 384px;
+        margin: 34px auto 0;
+    }
+}

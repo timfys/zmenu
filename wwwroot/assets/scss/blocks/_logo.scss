@@ -1,0 +1,10 @@
+.logo {
+
+    @include hover {
+        filter: brightness(0.8);
+    }
+
+    & img {
+        max-width: 190px;
+    }
+}

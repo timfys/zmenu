@@ -1,0 +1,33 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+	Layout = "Master.cshtml";
+
+	var errorText = Umbraco.GetDictionaryValue("Error Page");
+}
+
+<style>
+    .error-header
+    {
+        text-align: center; 
+        margin-top: 20vh;
+        padding-top: 20vh; 
+        margin-bottom: 25vh;
+    }
+    @@media (max-width: 550px) {
+        .error-header
+        {
+            text-align: center; 
+            padding-top: 10vh; 
+            margin-bottom: 13vh;
+        }   
+    }
+    @@media (max-width: 430px) {
+            .error-header
+            {
+                font-size: 20px;
+            }   
+    }
+</style>
+
+<h3 class="error-header">@errorText</h3>

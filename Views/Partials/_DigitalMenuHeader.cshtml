@@ -1,0 +1,24 @@
+﻿@inherits UmbracoViewPage
+@using System.Threading
+@{
+    var path = Context.Request.Path.Value.TrimEnd("/");
+    path = path.Replace("/he", "").Replace("/ru", "");
+}
+<header>
+    <div class="header_elements">
+        <div class="lang_choose">
+            <a class="lang_icon" href="/he@(path)">
+                <img src="/media/flags/Israel.png" alt="hebrew"/>
+            </a>
+            <a class="lang_icon" href="/ru@(path)">
+                <img src="/media/flags/Russia.png" alt="russian"/>
+            </a>
+            <a class="lang_icon" href="@path.TrimStart()">
+                <img src="/media/flags/United-States.svg" alt="english"/>
+            </a>
+        </div>
+        <div class="logo_wrapper">
+            <img src="/media/wvxbkqlc/logo.svg" alt="logo"/>
+        </div>
+    </div>
+</header>

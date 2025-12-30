@@ -1,0 +1,199 @@
+﻿@page "{regionInfo:alpha}/{businessId:int}/{entityId:int}"
+@inject IStringLocalizer<HomeController> Localizer;
+@using Menu4Tech.Controllers
+@using Menu4Tech.Helper
+@using Menu4Tech.Models
+@using Menu4Tech.Models.Interfaces
+@using Microsoft.Extensions.Localization;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
+@inject IViewHelper ViewHelper
+@{
+    string culture = ViewHelper.Culture == null ? "eng" : ViewHelper.Culture;
+    var request = HttpContextAccessor.HttpContext.Request;
+}
+
+@if (culture.ToUpper() == "HEB" || culture.ToUpper() == "HE")
+{
+    <header class="qr-menu-header qr-menu-header-rtl" id="rtlhamburger" style="box-shadow: rgb(0 0 0 / 15%) 0px 2px 9px;">
+        <div class="container-fluid" style="height:50px">
+            <div class="row justify-content-center">
+                <div class="col" id="divLogoTextrtl" style="align-items:center;display:@ViewBag.LogoText">
+                    <div class="col-sm-8" style="text-align: left;"><div class="restaurant-name" id="logoTextrtl">@ViewBag.MetaTitle</div></div>
+                </div>
+                <div class="col" id="divLogoImagertl" style="display:@ViewBag.LogoImageVis;">
+                    <img class="img-fluid" style="height:50px" id="logortl" src="@ViewBag.LogoImg">
+                </div>
+                <div class="col-auto">
+                    <span class="qr-menu-open" onclick="openNav()">
+                        <svg width="50" height="50" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3 18.1597H21V16.1597H3V18.1597ZM3 13.1597H21V11.1597H3V13.1597ZM3 6.15967V8.15967H21V6.15967H3Z"
+                                  fill="#2B2B2B" />
+                        </svg>
+                    </span>
+                    <span class="qr-menu-close" onclick="closeNav()" style="display: none;">
+                        <svg width="50" height="50" viewBox="0 0 30 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21.8745 9.01263L20.4897 7.71436L14.9995 12.8614L9.50933 7.71436L8.12451 9.01263L13.6147 14.1597L8.12451 19.3067L9.50933 20.605L14.9995 15.4579L20.4897 20.605L21.8745 19.3067L16.3843 14.1597L21.8745 9.01263Z"
+                                  fill="#2B2B2B" />
+                        </svg>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </header>
+}
+else
+{
+    <header class="qr-menu-header" id="ltrhamburger" style="box-shadow: rgb(0 0 0 / 15%) 0px 2px 9px;">
+        <div class="container-fluid" style="height:50px">
+            <div class="row justify-content-center">
+                <div class="col" id="divLogoTextltr" style="align-items:center;display:@ViewBag.LogoText;">
+                    <div class="col-sm-7" style="text-align: right;"> <div class="restaurant-name" id="logoTextltr">@ViewBag.MetaTitle</div></div>
+                </div>
+                <div class="col" id="divLogoImageltr" style="display:@ViewBag.LogoImageVis;">
+                    <a asp-action="Index" asp-controller="Home" asp-route-businessid="@ViewBag.BusinessId" asp-route-entityId="@ViewBag.Entityid" asp-route-culture="@ViewBag.Culture">
+                        <img class="img-fluid" style="height:50px" id="logoltr" src="@ViewBag.LogoImg"></a>
+                </div>
+                <div class="col-auto">
+                    <span class="qr-menu-open" onclick="openNav()">
+                        <svg width="50" height="50" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3 18.1597H21V16.1597H3V18.1597ZM3 13.1597H21V11.1597H3V13.1597ZM3 6.15967V8.15967H21V6.15967H3Z"
+                                  fill="#2B2B2B" />
+                        </svg>
+                    </span>
+                    <span class="qr-menu-close" onclick="closeNav()" style="display: none;">
+                        <svg width="50" height="50" viewBox="0 0 30 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21.8745 9.01263L20.4897 7.71436L14.9995 12.8614L9.50933 7.71436L8.12451 9.01263L13.6147 14.1597L8.12451 19.3067L9.50933 20.605L14.9995 15.4579L20.4897 20.605L21.8745 19.3067L16.3843 14.1597L21.8745 9.01263Z"
+                                  fill="#2B2B2B" />
+                        </svg>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </header>
+}
+
+<div style="margin-bottom: 10px;display:flex;" id="divLogoTextltr">
+</div>
+
+<div class="row" id="rtlNavbar">
+    <div class="col-12 bgcolor paddinglt" style="position:absolute">
+        <nav class="navbar navbar-expand-sm" id="navBar" style="padding: 0px;">
+            <div id="menuContainerrtl" class="sidenav" style="z-index:3">
+                <div class="qr-menu-inner qr-menu-rtl">
+                    @if (request.Cookies.ContainsKey("EntityId"))
+                    {
+                        <b>@ViewBag.Welcome @request.Cookies["DisplayName"]</b>
+                        <div class="qr-menu-submenu">
+                            <a href="/@(ViewBag.Culture)/@(ViewBag.BusinessId)/@(ViewBag.Entityid)">
+                                <img width="32" src="~/images/menu.png" alt="" />
+                                @ViewBag.Menu
+                            </a>
+                        </div>
+                        <div class="qr-menu-submenu">
+                            <a asp-action="MyBenefits" asp-controller="Home" asp-route-culture="@ViewBag.Culture" asp-route-businessId="@ViewBag.BusinessId" asp-route-entityId="@ViewBag.Entityid">
+                                <img width="32" src="~/images/benefit.png" alt="" /><b>@ViewBag.MyBenefits</b>
+                            </a>
+                        </div>
+                        <div class="qr-menu-submenu">
+                            <a asp-controller="JoinBusiness" asp-action="Logout" asp-route-returnPath="/@(ViewBag.Culture)/@(ViewBag.BusinessId)/@(ViewBag.Entityid)">
+                                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                @ViewBag.Logout
+                            </a>
+                        </div>
+                    }
+                    else
+                    {
+                        <a asp-controller="JoinBusiness" asp-action="Join" asp-route-businessid="@ViewBag.BusinessId" asp-route-entityId="@ViewBag.Entityid" asp-route-culture="@ViewBag.Culture">
+                            <img width="32" src="~/images/joinimage.png" alt="" />
+                            @ViewBag.JoinText
+                        </a>
+                    }
+
+                    <div class="qr-menu-submenu">
+                        <div class="qr-menu-heading">
+                            @ViewBag.LanguagesText
+                        </div>
+                        <div>
+                                @foreach (Language lang in ViewBag.Languages)
+                                {
+                                <a asp-controller="@ViewContext.RouteData.Values["controller"]" asp-action="@ViewContext.RouteData.Values["action"]" asp-route-businessId="@ViewBag.BusinessId"
+                                    asp-route-entityId="@ViewBag.Entityid" asp-route-culture="@lang?.Iso">
+                                        <img width="32" src="~/images/flags/@(lang?.CountryIso).png" alt="" />
+                                        @lang?.Name
+                                </a>
+                                }
+
+                            @*<a href="#" id="rtlen">
+                                <img width="32" src="~/images/enimage1.png" alt="" />
+                                @Localizer["EnglishText"]
+                            </a>
+                            <a href="#" id="rtlhe">
+                                <img width="32" src="~/images/heimage1.png" alt="" />
+                                @Localizer["HebrewText"]
+                            </a>
+                            <a href="#" id="rtlru">
+                                <img width="32" src="~/images/ruimage1.png" alt="" />
+                                @Localizer["RussianText"]
+                            </a>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+
+
+<div class="row" id="ltrNavbar">
+    <div class="col-12 bgcolor" style="position:absolute;padding-left:0px !important">
+        <nav class="navbar navbar-expand-sm" id="navBar" style="padding: 0px;">
+            <div id="qr-sidebar-menu" class="sidenav" style="z-index:3">
+                <div class="qr-menu-inner">
+                    @if (HttpContextAccessor.HttpContext.Request.Cookies.ContainsKey("EntityId"))
+                    {
+                        <b>@ViewBag.Welcome @HttpContextAccessor.HttpContext.Request.Cookies["DisplayName"]</b>
+                        <div class="qr-menu-submenu">
+                            <a href="/@(ViewBag.Culture)/@(ViewBag.BusinessId)/@(ViewBag.Entityid)">
+                                <img width="32" src="~/images/menu.png" alt="" />
+                                @ViewBag.Menu
+                            </a>
+                        </div>
+                        <div class="qr-menu-submenu">
+                            <a asp-action="MyBenefits" asp-controller="Home" asp-route-culture="@ViewBag.Culture" asp-route-businessId="@ViewBag.BusinessId" asp-route-entityId="@ViewBag.Entityid">
+                                <img width="32" src="~/images/benefit.png" alt="" /><b>@ViewBag.MyBenefits</b>
+                            </a>
+                        </div>
+                        <div class="qr-menu-submenu">
+                            <a asp-controller="JoinBusiness" asp-action="Logout" asp-route-returnPath="/@(ViewBag.Culture)/@(ViewBag.BusinessId)/@(ViewBag.Entityid)">
+                                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                @ViewBag.Logout
+                            </a>
+                        </div>
+                    }
+                    else
+                    {
+                        <a asp-controller="JoinBusiness" asp-action="Login" asp-route-businessid="@ViewBag.BusinessId" asp-route-entityId="@ViewBag.Entityid" asp-route-culture="@ViewBag.Culture">
+                            <img width="32" src="~/images/joinimage.png" alt="" />
+                            @ViewBag.JoinText
+                        </a>
+                    }
+                    <div class="qr-menu-submenu">
+                        <div class="qr-menu-heading">
+                            @ViewBag.LanguagesText
+                        </div>
+                        <div>
+                            @foreach(Language lang in ViewBag.Languages)
+                            {
+                                <a href="@UrlHelper.GetLocalizedUrl(request.Path.Value, request.QueryString.Value, lang?.Iso)">
+                                    <img width="32" src="~/images/flags/@(lang?.CountryIso).png" alt="" />
+                                    @lang?.Name
+                                </a>
+                            }
+                         
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+@using Menu4Tech.Helper
+@using SmartWinners.Helpers
+@model Menu4Tech.Models.MobileInputModel
+
+@{
+    var countries = CountryUtility.Countries;
+
+    var selected = string.IsNullOrEmpty(Model.SelectedCountryIso) ? countries.First() : countries.First(x => x.Alpha2.Equals(Model.SelectedCountryIso, StringComparison.OrdinalIgnoreCase));
+}
+
+<div class="iti iti--allow-dropdown iti--show-flags iti--inline-dropdown">
+    <div class="iti__country-container" style="left: 0px;">
+        <button type="button" class="iti__selected-country" aria-expanded="false" aria-label="Selected country"
+                aria-haspopup="true" aria-controls="iti-0__dropdown-content" role="combobox" title="@Html.Raw(selected.Name)" onclick="ToggleMobileCombo('@Html.Raw(Model.Name)')">
+            <div class="iti__selected-country-primary">
+                <div class="iti__flag iti__@Html.Raw(selected.Alpha2.ToLower())"><span class="iti__a11y-text">@Html.Raw(selected.Name) +@Html.Raw(selected.Code)</span></div>
+                <div class="iti__arrow" aria-hidden="true"></div>
+            </div>
+            <div class="iti__selected-dial-code">+@Html.Raw(selected.Code)</div>
+        </button>
+        <div style="display: none" id="iti-0__dropdown-content" class="iti__dropdown-content iti__hide"><input oninput="SearchMobileComboCountries('@Html.Raw(Model.Name)', this.value)"
+                type="text" class="iti__search-input" placeholder="Search" role="combobox" aria-expanded="true"
+                aria-label="Search" aria-controls="iti-0__country-listbox" aria-autocomplete="list"
+                autocomplete="off"><span class="iti__a11y-text">@Html.Raw(countries.Count) results found</span>
+            <ul class="iti__country-list" id="iti-0__country-listbox" role="listbox" aria-label="List of countries">
+                @foreach (var c in countries)
+                {
+                    <li onclick="ExecuteDelegates([SetMobileComboSelectedCountry.bind(null, '@Html.Raw(Model.Name)', '@Html.Raw(c.Alpha2.ToLower())'), CollapseMobileCombo.bind(null, '@Html.Raw(Model.Name)')])" id="iti-0__item-@Html.Raw(c.Alpha2.ToLower())" class="iti__country" tabindex="-1" role="option"
+                        data-dial-code="@Html.Raw(c.Code)" data-country-code="@Html.Raw(c.Alpha2.ToLower())" aria-selected="false">
+                        <div class="iti__flag iti__@Html.Raw(c.Alpha2.ToLower())"></div>
+                        <span class="iti__country-name">@Html.Raw(c.Name)</span>
+                        <span class="iti__dial-code">+@Html.Raw(c.Code)</span>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+    <input tabindex="-1" value="@Html.Raw(Model.InitialMobile)" type="text" class="phone_input form_input phone_for_forgot iti__tel-input"
+           style="color: black; font-weight: 400 !important;" id="@Html.Raw(Model.Name)" required="required"
+           placeholder="Your phone number" autocomplete="off" data-intl-tel-input-id="0" inputmode="numeric"
+           pattern="[0-9]*" oninput="OnMobileInput(event, '@Html.Raw(Model.Name)')" onpaste="OnMobilePaste(event,  '@Html.Raw(Model.Name)')"></div>
+           
+<script>
+    if (window.MobileCombos instanceof Array){
+        window.MobileCombos.push({Name : "@Html.Raw(Model.Name)", SelectedCountry : "@Html.Raw(selected.Alpha2.ToLower())", SelectedCountryCode : "@Html.Raw(selected.Code)"});
+    }else{
+        window.MobileCombos = [{Name : "@Html.Raw(Model.Name)", SelectedCountry : "@Html.Raw(selected.Alpha2.ToLower())", SelectedCountryCode : "@Html.Raw(selected.Code)"}];
+    }
+</script>

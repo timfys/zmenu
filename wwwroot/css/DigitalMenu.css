@@ -1,0 +1,217 @@
+* {
+  margin: 0;
+}
+
+body {
+  position: relative;
+  font-family: Arial, Helvetica, sans-serif;
+}
+body .disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+body .txt_center {
+  text-align: center;
+}
+body .header_elements {
+  top: 0;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  padding: 20px 100px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  height: 100px;
+  position: fixed;
+  background-color: white;
+  z-index: 100;
+  border-bottom: 4px solid #f6f6f6;
+}
+body .header_elements .lang_choose {
+  height: fit-content;
+  align-self: center;
+  position: absolute;
+  width: 120px;
+  display: flex;
+  justify-content: space-between;
+}
+body .header_elements .lang_choose .lang_icon {
+  width: 33px;
+  height: 24px;
+}
+body .header_elements .lang_choose .lang_icon img {
+  height: 100%;
+  width: 100%;
+}
+body .header_elements .logo_wrapper {
+  margin: 0 auto;
+  align-self: center;
+}
+body .digital_menu_body_wrapper {
+  margin-top: 100px;
+  position: relative;
+  padding: 0 100px;
+  z-index: 1;
+  background-color: #f6f6f6;
+  height: fit-content;
+}
+body .digital_menu_body_wrapper .digital_menu_body_content {
+  background-color: white;
+  height: 100%;
+  padding: 20px 100px;
+}
+body .digital_menu_body_wrapper .digital_menu_body_content .pagination_wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 20px 0;
+}
+body .digital_menu_body_wrapper .digital_menu_body_content .pagination_wrapper .pagination_elem {
+  color: black;
+  text-decoration: none;
+  padding: 10px 50px;
+  border: 1px solid black;
+  display: block;
+  transition: 0.3s ease-in-out;
+}
+body .digital_menu_body_wrapper .digital_menu_body_content .pagination_wrapper .pagination_prev {
+  border-radius: 8px 0 0 8px;
+}
+body .digital_menu_body_wrapper .digital_menu_body_content .pagination_wrapper .pagination_next {
+  border-radius: 0 8px 8px 0;
+}
+body .digital_menu_body_wrapper .digital_menu_body_content .pagination_wrapper .pagination_elem:hover {
+  background-color: #efefef;
+}
+body .digital_menu_body_wrapper .digital_menu_body_content .rest_elems_wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 60px;
+}
+body .digital_menu_body_wrapper .digital_menu_body_content .rest_elems_wrapper .rest_elem {
+  display: flex;
+  width: 600px;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+body .digital_menu_body_wrapper .digital_menu_body_content .rest_elems_wrapper .rest_elem .rest_elem_img {
+  align-self: center;
+  flex-basis: 20%;
+  display: flex;
+  justify-content: flex-end;
+  height: 100px;
+}
+body .digital_menu_body_wrapper .digital_menu_body_content .rest_elems_wrapper .rest_elem .rest_elem_img .rest_logo {
+  width: 100%;
+  height: 100%;
+}
+body .digital_menu_body_wrapper .digital_menu_body_content .rest_elems_wrapper .rest_elem .rest_info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  text-align: center;
+  flex-basis: 55%;
+  margin-right: auto;
+}
+body .digital_menu_body_wrapper .digital_menu_body_content .rest_elems_wrapper .rest_elem .rest_info .rest_name {
+  font-size: 25px;
+}
+body .digital_menu_body_wrapper .digital_menu_body_content .rest_elems_wrapper .rest_elem .rest_supported_lang {
+  align-self: center;
+  display: flex;
+  flex-basis: 25%;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  /*            .supported_lang:nth-child(3n + 2) {
+                margin-right: 10.5px;
+                margin-left: 10.5px;
+              }*/
+}
+body .digital_menu_body_wrapper .digital_menu_body_content .rest_elems_wrapper .rest_elem .rest_supported_lang .supported_lang_wrap {
+  margin: 5px 0;
+  flex-basis: 33%;
+  display: flex;
+  justify-content: center;
+}
+body .digital_menu_body_wrapper .digital_menu_body_content .rest_elems_wrapper .rest_elem .rest_supported_lang .supported_lang_wrap .supported_lang {
+  width: 33px;
+}
+body .digital_menu_body_wrapper .digital_menu_content_title_wrap .main_content_title_desc {
+  margin-top: 20px;
+  font-size: 14px;
+}
+body .digital_menu_body_wrapper .digital_menu_content_title_wrap .create_menu_link {
+  color: blue;
+  font-size: 20px;
+  margin-top: 20px;
+  display: block;
+}
+body .digital_menu_body_wrapper .digital_menu_content_title_wrap .create_menu_link:hover {
+  color: #3b3bff;
+}
+body .digital_menu_body_wrapper .digital_menu_content_title_wrap .create_menu_link:active {
+  color: #6e6eff;
+}
+
+@media (max-width: 1080px) {
+  body .digital_menu_body_wrapper .digital_menu_body_content {
+    padding: 20px 20px;
+  }
+}
+@media (max-width: 860px) {
+  body .digital_menu_body_wrapper .digital_menu_body_content .rest_elems_wrapper .rest_elem {
+    width: 100%;
+  }
+  body .digital_menu_body_wrapper .digital_menu_body_content .rest_elems_wrapper .rest_elem .rest_supported_lang .supported_lang {
+    flex-basis: 25%;
+  }
+}
+@media (max-width: 760px) {
+  body .header_elements {
+    padding: 20px 60px;
+  }
+  body .digital_menu_body_wrapper {
+    padding: 0;
+  }
+  body .header_elements .lang_choose {
+    left: 0;
+    position: relative;
+  }
+  body .header_elements .logo_wrapper {
+    margin: 0 0 0 auto;
+  }
+}
+@media (max-width: 660px) {
+  body .digital_menu_body_wrapper .digital_menu_body_content .rest_elems_wrapper .rest_elem {
+    width: 100%;
+  }
+  body .digital_menu_body_wrapper .digital_menu_body_content .rest_elems_wrapper .rest_elem .rest_info .rest_name {
+    font-size: 18px;
+  }
+  body .digital_menu_body_wrapper .digital_menu_body_content .rest_elems_wrapper .rest_elem .rest_info .rest_address {
+    font-size: 14px;
+  }
+  body .digital_menu_body_wrapper .digital_menu_body_content .rest_elems_wrapper .rest_elem .rest_supported_lang .supported_lang {
+    flex-basis: 20%;
+  }
+}
+@media (max-width: 430px) {
+  body .header_elements {
+    padding: 20px 30px;
+  }
+  body .digital_menu_body_wrapper {
+    padding: 0;
+  }
+}
+@media (max-width: 380px) {
+  body .digital_menu_body_wrapper .digital_menu_body_content .rest_elems_wrapper .rest_elem .rest_info .rest_name {
+    font-size: 16px;
+  }
+  body .digital_menu_body_wrapper .digital_menu_body_content .rest_elems_wrapper .rest_elem .rest_info .rest_address {
+    font-size: 12px;
+  }
+}
+
+/*# sourceMappingURL=DigitalMenu.css.map */

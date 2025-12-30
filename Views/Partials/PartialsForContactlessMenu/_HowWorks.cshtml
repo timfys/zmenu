@@ -1,0 +1,75 @@
+﻿@inherits UmbracoViewPage
+@using System.Threading
+@{
+    var currentLanguage = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
+    var cssRTL = "";
+    if (currentLanguage == "he")
+    {
+        cssRTL = "rtl-solution";
+    }
+    
+    var media = Umbraco.MediaAtRoot();
+    
+    var howWorks = media.Where(x => x.Name.Equals("How Works")).First();
+    
+    var SignUp = howWorks.Children.Where(x => x.Name.Equals("SignUp")).First();
+    var Free = howWorks.Children.Where(x => x.Name.Equals("Free")).First();
+    var Wipe1 = howWorks.Children.Where(x => x.Name.Equals("Wipe 1")).First();
+    var qrCode = howWorks.Children.Where(x => x.Name.Equals("Qr Code")).First();
+    
+    var url = new Uri("https://" + Context.Request.Host.Value + Context.Request.Path);
+    var lang = currentLanguage == "en" ? "" : "/" + currentLanguage;
+    var port = url.IsDefaultPort ? "" : ":" + url.Port;
+    var loginPage = lang + $"/login?t=1";
+    //1175 free
+    //1174 wipe
+    //1173 qr
+    //1194 sign up
+}
+<section class="solution p-t-b-25px @cssRTL">
+    <div class="container py-md-5 how-works-container">
+        <div class="row box-sol-item box-main">
+            <div class="col-12 ">
+                <h2 class="box-head-title mb-4 how-works-title">@Umbraco.GetDictionaryValue("HowWorks")</h2>
+            </div>
+            <div class="col-sm-12 col-md-6  col-lg-3 d-flex mb-2 how-works-card">
+                <div class="flex-fill sol-item kd-int" data-animate="kd-animated-200">
+                    <a href="@(loginPage)" target="_self">
+                        <img class='howworks--img' src="@SignUp.Url()"/>
+                        <h5 class="sol-title my-3  how-works-title-secondary">@Umbraco.GetDictionaryValue("SignUpTitle")</h5>
+                        <p class="box-head-content how-works-text"> @Umbraco.GetDictionaryValue("SignUp")</p>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-3 d-flex mb-2 how-works-card">
+                <div class="flex-fill sol-item kd-int" data-animate="kd-animated-200">
+                    <a href="@(loginPage)" target="_self">
+                        <img class='howworks--img' src="@Free.Url()"/>
+                        <h5 class="sol-title my-3 how-works-title-secondary">@Umbraco.GetDictionaryValue("CreateFreeMenuTitle")</h5>
+                        <p class="box-head-content how-works-text"> @Umbraco.GetDictionaryValue("CreateFreeMenu")</p>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-3 d-flex mb-2 how-works-card">
+                <div class=" flex-fill sol-item kd-int" data-animate="kd-animated-400">
+                    <a href="@(loginPage)" target="_self">
+                        <img class='howworks--img' src="@qrCode.Url()"/>
+                        <h5 class="sol-title my-3 how-works-title-secondary">@Umbraco.GetDictionaryValue("PrintQRCodeTitle")</h5>
+                        <p class="box-head-content how-works-text">@Umbraco.GetDictionaryValue("PrintQRCode")</p>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-3 d-flex mb-2 how-works-card">
+                <div class="flex-fill sol-item kd-int" data-animate="kd-animated-600">
+                    <a href="@(loginPage)" target="_self">
+                        <img class='howworks--img' src="@Wipe1.Url()"/>
+                        <h5 class="sol-title my-3 how-works-title-secondary">@Umbraco.GetDictionaryValue("GoContactLessTitle")</h5>
+                        <p class="box-head-content how-works-text"> @Umbraco.GetDictionaryValue("GoContactLess")</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

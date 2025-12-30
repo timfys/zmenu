@@ -1,0 +1,134 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@using Menu4Tech.Helper;
+@using System.Threading;
+@using System.Globalization;
+@using System.IO;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+    Layout = "/Views/Master.cshtml";
+    var pageIndex = ViewBag.PageIndex as int?;
+    pageIndex = pageIndex is < 0 ? 1 : pageIndex;
+    var businesses = BusinessManager.GetBusiness(pageIndex);
+    if (Context.Request.Path.Value.Contains("/he"))
+    {
+        var ilsCulture = CultureInfo.GetCultures(CultureTypes.AllCultures).First(x => x.LCID == 13);
+
+        Thread.CurrentThread.CurrentCulture = ilsCulture;
+        Thread.CurrentThread.CurrentUICulture = ilsCulture;
+    }
+    else if (Context.Request.Path.Value.Contains("/ru"))
+    {
+        var rusCulture = CultureInfo.GetCultures(CultureTypes.AllCultures).First(x => x.LCID == 25);
+
+        Thread.CurrentThread.CurrentCulture = rusCulture;
+        Thread.CurrentThread.CurrentUICulture = rusCulture;
+    }
+    var currentLanguage = Thread.CurrentThread.CurrentCulture.ToString();
+    var currentISOLanguage = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
+    var currentIsoUrlString = currentISOLanguage.ToLower() is "en" ? "/" : $"/{currentISOLanguage}/";
+
+    var dirRTL = "";
+    var cssRTL = "";
+    if (currentLanguage == "he")
+    {
+        dirRTL = " dir='rtl' ";
+        cssRTL = " rtl-master ";
+    }
+    var url = new Uri("https://" + Context.Request.Host.Value + Context.Request.Path);
+    var timeSpan = DateTime.Now.Ticks.ToString();
+    var shareImageFB = "https://www.mekashron.com/assets/img/img-share-fb.jpg";
+    var shareImageTwitter = "https://www.mekashron.com/assets/img/img-share-twitter.jpg";
+    Cooking.SetCookie("current_culture", currentISOLanguage.Replace("en", ""));
+    var isNextPage = businesses is not null && businesses.Count == 21;
+
+    ViewBag.IgnoreFooter = true;
+}
+
+<link href="/css/DigitalMenu.css" type="text/css" rel="stylesheet"/>
+
+@if (currentLanguage.Contains("he", StringComparison.OrdinalIgnoreCase))
+{
+    <link href="/css/DigitalMenu.css" type="text/css" rel="stylesheet"/>
+}
+
+<div class="digital_menu_body_wrapper">
+    <div class="digital_menu_body_content">
+        <div class="digital_menu_content_title_wrap">
+            <h2 class="txt_center main_content_title">@Umbraco.GetDictionaryValue("Delightful Dining")</h2>
+            <p class="txt_center main_content_title_desc">@Umbraco.GetDictionaryValue("Go Digital")</p>
+            <a href="@(UrlHelper.GetHostUrl())@(currentIsoUrlString)contactless-menu-qr-code/" class="txt_center create_menu_link">@Umbraco.GetDictionaryValue("Create your digital menu")</a>
+                                                                                                                                                                                       </div>
+        <div class="rest_elems_wrapper">
+            @if (businesses is not null)
+            {
+                @foreach (var business in businesses.Take(20))
+                {
+                    <div class="rest_elem">
+                        <div class="rest_elem_img">
+                            @{
+                                var path = $"{EnvironmentHelper.Environment.WebRootPath}\\Files\\{business.BusinessId}";
+                                var directory = new DirectoryInfo(path);
+                            }
+
+                            @if (directory.Exists && directory.EnumerateFileSystemInfos().Any(x => x.Name.Equals("logo.jpg", StringComparison.OrdinalIgnoreCase)))
+                            {
+                                <img class="rest_logo" src="~/Files/@business.BusinessId/logo.jpg" alt="@business.BusinessName"/>
+                            }
+
+                        </div>
+                        <div class="rest_info">
+                            <p class="rest_name">@business.BusinessName</p>
+                            <p class="rest_address">@(string.IsNullOrEmpty(business.Address) && string.IsNullOrEmpty(business.City) && string.IsNullOrEmpty(business.Zip) ? "" : $"{business.Address}, {business.City}, {business.Zip}")</p>
+                        </div>
+                        <div class="rest_supported_lang">
+                            
+                            @if (business.SupportedCountries is not null && business.SupportedCountries.Count is not 0)
+                            {
+                                @foreach (var country in business.SupportedCountries)
+                                {
+                                    if (country.TwoLetterCountryIso.Equals("us", StringComparison.OrdinalIgnoreCase))
+                                    {
+                                        <a href="https://m.zmenu.net/eng/@business.BusinessId/@business.EntityId" class="supported_lang_wrap" target="_blank">
+                                            <img class="supported_lang" src="/media/flags/US.svg" alt="@business.BusinessName"/>
+                                        </a>
+                                    }
+                                    else if (country.TwoLetterCountryIso.Equals("il", StringComparison.OrdinalIgnoreCase))
+                                    {
+                                        <a href="https://m.zmenu.net/heb/@business.BusinessId/@business.EntityId" class="supported_lang_wrap" target="_blank">
+                                            <img class="supported_lang" src="/media/flags/Israel.png" alt="@business.BusinessName"/>
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a href="https://m.zmenu.net/@country.ThreeLetterCountryIso.ToLower()/@business.BusinessId/@business.EntityId" class="supported_lang_wrap" target="_blank">
+                                            <img class="supported_lang" src="/media/flags/@(country.CountryName).png" alt="@business.BusinessName"/>
+                                        </a>
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                <a href="https://m.zmenu.net/eng/@business.BusinessId/@business.EntityId" class="supported_lang_wrap" target="_blank">
+                                    <img class="supported_lang" src="/media/flags/US.svg" alt="@business.BusinessName"/>
+                                </a>
+                                <a href="https://m.zmenu.net/rus/@business.BusinessId/@business.EntityId" class="supported_lang_wrap" target="_blank">
+                                    <img class="supported_lang" src="/media/flags/Russia.png" alt="@business.BusinessName"/>
+                                </a>
+                                <a href="https://m.zmenu.net/heb/@business.BusinessId/@business.EntityId" class="supported_lang_wrap" target="_blank">
+                                    <img class="supported_lang" src="/media/flags/Israel.png" alt="@business.BusinessName"/>
+                                </a>
+                            }
+
+                        </div>
+                    </div>
+                }
+            }
+
+
+        </div>
+        <div class="pagination_wrapper">
+            <a href="@currentIsoUrlString@(pageIndex is null ? 0 : pageIndex.Value - 1)" class="pagination_prev pagination_elem @(pageIndex is 0 or null ? "disabled" : "")">@Umbraco.GetDictionaryValue("Prev")</a>
+            <a href="@currentIsoUrlString@(pageIndex is null ? 1 : pageIndex.Value + 1)" class="pagination_next pagination_elem @(isNextPage ? "" : "disabled")">@Umbraco.GetDictionaryValue("Next")</a>
+        </div>
+    </div>
+</div>

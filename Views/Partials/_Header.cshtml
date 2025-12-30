@@ -1,0 +1,183 @@
+﻿@using Umbraco.Cms.Core.Models
+@using Menu4Tech.Helper
+@inherits UmbracoViewPage
+@using System.Threading
+@using J2N.Collections.Generic.Extensions
+@using Menu4Tech.Models
+@{
+    var currentLanguage = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
+    var cssRTL = "";
+    if (currentLanguage == "he")
+    {
+        cssRTL = "rtl-header";
+    }
+
+    var url = new Uri("https://" + Context.Request.Host.Value + Context.Request.Path);
+    var site = Model.Root();
+    var media = Umbraco.MediaAtRoot();
+    var logo = media.Where(x => x.Name.Equals("Logo")).First().Url();
+    var selection = new List<IPublishedContent>(site.Children.Where(x => x.IsVisible()));
+    var conctactUsIndex = selection.FindIndex(x => x.Name.Equals("Contact Us") || x.Name.Equals("צור קשר") || x.Name.Equals("Связаться с нами"));
+    var productsIndex = selection.FindIndex(x => x.Name.Equals("Products") || x.Name.Equals("מוצרים") || x.Name.Equals("Продукты"));
+    selection.Swap(conctactUsIndex, productsIndex);
+    selection.RemoveAt(selection.FindIndex(x => x.Name.Equals("error")));
+    selection.RemoveAt(selection.FindIndex(x => x.Name.Equals("Store") || x.Name.Equals("Магазин") || x.Name.Equals("חנות")));
+
+    var lang = currentLanguage == "en" ? "" : $"/{currentLanguage}";
+    var port = url.IsDefaultPort ? "" : ":" + url.Port;
+    var crmLoginPage = $"https://crm.menu4u.tech/{lang}/login";
+
+    var currentUser = Cooking.GetCookie<User>(Cooking.MainUserData);
+}
+
+
+<header class="header @cssRTL">
+    <div class="container">
+        <div class="header__inner">
+            <button class="burger" id="burgerButton">
+                <img src="/assets/images/icons/burger.svg" alt="menu">
+            </button>
+            <a href="@Html.Raw(lang)/" class="logo">
+                <picture>
+                    <source srcset="/assets/images/favicon.svg" media="(max-width: 768px)">
+                    <img src="/assets/images/logo.svg" alt="Logo">
+                </picture>
+            </a>
+
+            <nav class="header__navigation navigation">
+                <ul class="navigation__list" style="margin: 0">
+
+                    @if (selection.Count() > 0)
+                    {
+                        foreach (var item in selection)
+                        {
+                            if (item.ContentType.Alias != "fAQ" && item.ContentType.Alias != "login")
+                            {
+                                var title = item.GetProperty("Title")?.GetValue() as string;
+
+                                title = string.IsNullOrEmpty(title) ? item.Name : title;
+
+                                var ignore = item.GetProperty("ignoreTab")?.GetValue() as bool?;
+                                
+                                if (item.Children.Count() > 0 && item.ContentType.Alias != "contactlessmenu" && ignore is false or null)
+                                {
+                                    
+                                    <li class="menu-item menu-item-has-children">
+                                        <a href="@(UrlHelper.GetHostUrl())@(TranslationHelper.OverridePathWithCurrentCulture(item.Url()))">@title</a>
+                                        <ul class="sub-menu">
+                                            @foreach (var childItem in item.Children)
+                                            {
+                                                var subTitle = childItem.GetProperty("Title")?.GetValue() as string;
+
+                                                subTitle = string.IsNullOrEmpty(subTitle) ? childItem.Name : subTitle;
+                                                
+                                                <li class="menu-item">
+                                                    <a href='@(UrlHelper.GetHostUrl())@(TranslationHelper.OverridePathWithCurrentCulture((string)childItem.Value("ChildUrl") ?? childItem.Url()))'>@subTitle</a>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </li>
+                                }
+                                else if(ignore is false or null)
+                                {
+                                    <li class="menu-item">
+                                        <a href="@(UrlHelper.GetHostUrl())@(TranslationHelper.OverridePathWithCurrentCulture(item.Url()))">@title</a>
+                                    </li>
+                                }
+                            }
+                        }
+                    }
+
+                </ul>
+            </nav>
+            <div class="header__actions row">
+                @if (currentUser != null)
+                {
+                    <a href='@Html.Raw(Url.Action("Logout", "JoinBusiness"))'
+                       class="button button--white hidden-mobile">@Umbraco.GetDictionaryValue("Logout")</a>
+                    @if (Model.Name == "Pos For A Retailers")
+                    {
+                        <a href='~/umbraco/Surface/Home/RedirectToCrm'
+                           class="button button--accent">Open my store</a>
+                    }
+                    else
+                    {
+                        <a href='~/umbraco/Surface/Home/RedirectToCrm'
+                           class="button button--accent">@Umbraco.GetDictionaryValue("Open my restaurant")</a>
+                    }
+
+                }
+                else
+                {
+                    <a href='@(UrlHelper.GetHostUrl())@(TranslationHelper.OverridePathWithCurrentCulture("/JoinBusiness/Login"))'
+                       class="button button--white hidden-mobile">@Umbraco.GetDictionaryValue("Login")</a>
+                    @if (Model.Name == "Pos For A Retailers")
+                    {
+                        <a href='@(UrlHelper.GetHostUrl())@(TranslationHelper.OverridePathWithCurrentCulture("/JoinBusiness/Login"))'
+                           class="button button--accent">Open my store</a>
+                    }
+                    else
+                    {
+                        <a href='@(UrlHelper.GetHostUrl())@(TranslationHelper.OverridePathWithCurrentCulture("/JoinBusiness/Login"))'
+                           class="button button--accent">@Umbraco.GetDictionaryValue("Open my restaurant")</a>
+                    }
+                }
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<div class="mobile__nav">
+    <button class="icon close" id="closeMenu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M12.0001 9.8183L2.18182 0L0 2.18182L9.8183 12.0001L0.000232995 21.8182L2.18205 24L12.0001 14.1819L21.8182 24L24 21.8182L14.1819 12.0001L24.0002 2.18182L21.8184 1.07288e-06L12.0001 9.8183Z"
+                  fill="white"/>
+        </svg>
+    </button>
+    <nav class="nav" role="navigation" aria-label="mobile navigation">
+        <ul class="navigation__list">
+            @if (selection.Count() > 0)
+            {
+                foreach (var item in selection)
+                {
+                    if (item.ContentType.Alias != "fAQ" && item.ContentType.Alias != "login")
+                    {
+                        var title = item.GetProperty("Title")?.GetValue() as string;
+
+                        title = string.IsNullOrEmpty(title) ? item.Name : title;
+
+                        var ignore = item.GetProperty("ignoreTab")?.GetValue() as bool?;
+                                
+                        if (item.Children.Count() > 0 && item.ContentType.Alias != "contactlessmenu" && ignore is false or null)
+                        {
+                                    
+                            <li class="menu-item menu-item-has-children">
+                                <a href="@(UrlHelper.GetHostUrl())@(TranslationHelper.OverridePathWithCurrentCulture(item.Url()))">@title</a>
+                                <ul class="sub-menu">
+                                    @foreach (var childItem in item.Children)
+                                    {
+                                        var subTitle = childItem.GetProperty("Title")?.GetValue() as string;
+
+                                        subTitle = string.IsNullOrEmpty(subTitle) ? childItem.Name : subTitle;
+                                                
+                                        <li class="menu-item">
+                                            <a href='@(UrlHelper.GetHostUrl())@(TranslationHelper.OverridePathWithCurrentCulture((string)childItem.Value("ChildUrl") ?? childItem.Url()))'>@subTitle</a>
+                                        </li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+                        else if(ignore is false or null)
+                        {
+                            <li class="menu-item">
+                                <a href="@(UrlHelper.GetHostUrl())@(TranslationHelper.OverridePathWithCurrentCulture(item.Url()))">@title</a>
+                            </li>
+                        }
+                    }
+                }
+            }
+        </ul>
+    </nav>
+</div>

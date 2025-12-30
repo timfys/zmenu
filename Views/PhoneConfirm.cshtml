@@ -1,0 +1,340 @@
+﻿@using Menu4Tech.Helper
+@inherits UmbracoViewPage
+@using System.Threading
+@using Azure
+@using Microsoft.AspNetCore.Mvc.RazorPages
+@using Newtonsoft.Json
+
+@{
+    Layout = "master.cshtml";
+
+    var request = new UserApiAccessData();
+
+    var apiResponse = new ApiResponse();
+
+    try
+    {
+        request = JsonConvert.DeserializeObject<UserApiAccessData>(Context.Request.Cookies["UserInfo"]);
+
+    }
+    catch
+    {
+        Context.Response.Redirect("/login?t=1");
+    }
+
+
+    var currentLanguage = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
+    var cssRTL = "";
+    var btnRTL = "";
+    if (currentLanguage == "he")
+    {
+        cssRTL = "text-rtl";
+        btnRTL = "btn-rtl";
+    }
+
+}
+
+<link rel="stylesheet" href="~/css/PhoneVerify.css?v=4"/>
+<link rel="stylesheet" href="/css/Login.css?v=7"/>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+<style>
+    .text-rtl {
+        text-align: right;
+    }
+
+    .btn-rtl {
+        border-top-left-radius: .5rem !important;
+        border-bottom-left-radius: .5rem !important;
+        border-top-right-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+    }
+
+        .btn-rtl:hover {
+            background: #444 !important;
+            color: #fff !important;
+            text-decoration: none !important;
+            -webkit-transition: 500ms !important;
+            -o-transition: 500ms !important;
+            transition: 500ms !important;
+            -webkit-border-radius: 50px !important;
+            -moz-border-radius: 50px !important;
+            -ms-border-radius: 50px !important;
+            -o-border-radius: 50px !important;
+            border-radius: 50px !important;
+            border-top-left-radius: 50px !important;
+            border-bottom-left-radius: 50px !important;
+            border-top-right-radius: 0 !important;
+            border-bottom-right-radius: 0 !important;
+        }
+</style>
+<section>
+    <div class="container email-verification @cssRTL">
+        <div class="loading" align="center">
+            <img src="~/Content/images/ajax-loader.gif" alt="" style="margin-top:6px;"/>&nbsp;&nbsp;<span>@Umbraco.GetDictionaryValue("Please wait..")</span>
+        </div>
+
+        <h4 class="text-center mt-4 mt-md-5">@Umbraco.GetDictionaryValue("VerifyPhonePage")</h4>
+        <p class="pt-0 alert-danger text-center" style="font-size: 1.5rem;"></p>
+        <!-- <div class="hr mb-4"></div>-->
+        <div class="text-center">
+            <i class="fa fa-phone mt-3 success-icon" aria-hidden="true"></i>
+            <p class="h2 pt-2" id="answer"></p>
+            <h5 class="text-center text-dark" id="log"></h5>
+        </div>
+        <div class="alert alert-warning mt-4 m-auto" style="max-width:600px;" role="alert">
+            <p class="small m-0" style="color:#000;font-size:1rem;">@Html.Raw(Umbraco.GetDictionaryValue("When you receive your SMS,"))</p>
+        </div>
+        <form>
+            <div class="input-group m-auto pt-4 pb-2" style="max-width:350px;">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="fa fa-key" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <input style="direction:ltr!important;text-align:start!important" class="form-control" dir="auto" tabindex="1" id="EmailAndMobileVerification_VerifyCode" maxlength="10" name="EmailAndMobileVerification.VerifyCode" required="required" type="tel" value="" autofocus>
+                <div class="input-group-append">
+                    <button class="btn button-b @btnRTL" id="verifyButton" style="padding:.5rem 2rem" type="button">@Umbraco.GetDictionaryValue("Verify")</button>
+                </div>
+            </div>
+        </form>
+        <div class="post-a-job @cssRTL">
+            <div class="post-a-job-box confirmation text-center mt-4 mt-md-5 p-3 pt-4 pb-3" style="background: #fafafa;">
+                <p class="m-0">
+                    @Umbraco.GetDictionaryValue("If the phone number")<strong id="change-num">@request.Username</strong> @Umbraco.GetDictionaryValue("is incorrect, change it by clicking on")
+                </p>
+                <p style="color: #f00;" id="change-num-error"></p>
+                <button type="button" class="btn btn-link d-inline-block" id="change-phone-btn" onclick="ShowPhone()">
+                    <span class="h4">
+                        <i class="fa fa-pencil" aria-hidden="true"></i> @Umbraco.GetDictionaryValue("Change phone")
+                    </span>
+                </button>
+                <form method="post">
+                    <div class="input-group m-auto pt-3 pb-2 d-none" id="change-phone">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fa fa-phone" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                        <input style="direction:ltr!important; text-align:start!important" class="form-control" dir="auto" id="EmailAndMobileVerification_NewMobile" maxlength="16" name="EmailAndMobileVerification.NewMobile" required="required" type="tel" value="">
+                        <div class="input-group-append">
+                            <button class="btn button-b p-2 pl-4 pr-4 @btnRTL" id="sendChangePhone" type="button"> @Umbraco.GetDictionaryValue("send")</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="m-auto pt-5" style="max-width: 600px; @cssRTL">
+            <h5 class="font-weight-bold text-center">@Umbraco.GetDictionaryValue("If you don’t receive our SMS:")</h5>
+            <div class="mt-3">
+                <p>@Umbraco.GetDictionaryValue("1) Сheck if the phone number is correct.")</p>
+            </div>
+            <div class="mt-3">
+                <p>@Umbraco.GetDictionaryValue("2) Wait a few minutes - your provider may be experiencing a delay.")</p>
+            </div>
+            <div class="mt-3">
+                <p>@Html.Raw(Umbraco.GetDictionaryValue("3) If you still don’t receive SMS, <a href=''>Contact Us</a> so we can help."))</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="~/Scripts/Cookies.js"></script>
+<script>
+    document.querySelector("#EmailAndMobileVerification_VerifyCode").focus();
+    
+    let PhoneNumber = @Html.Raw(request.Username);
+    
+    let WeJustSent = '@Umbraco.GetDictionaryValue("We’ve just sent SMS to")';
+
+    $(document).ready(function () {
+
+        //$('#log').html(result.ResultMessage);
+
+        $('#sendChangePhone').click(
+            async function () {
+
+                $('#EmailAndMobileVerification_VerifyCode').val('');
+                
+                if (!ValidateValues([document.querySelector("#EmailAndMobileVerification_NewMobile")]))
+                    return;
+
+                ShowProgress();
+
+                //var elem = document.querySelector('.email-verification').querySelector('p');
+                //elem.parentNode.removeChild(elem);
+
+                let tempPhone = document.querySelector("#EmailAndMobileVerification_NewMobile").value;        
+                
+                let resp = await fetch("/JoinBusiness/VerifyPhoneChange/phone=" + tempPhone, 
+                {
+                    method : "PATCH",
+                });
+                
+                if (resp.ok)
+                {
+                    PhoneNumber = tempPhone;
+                    document.querySelector("#change-num").innerText = PhoneNumber;
+
+                    handleResponse(resp);
+                    HidePhone();
+                    HideProgress();
+                    document.querySelector("#change-num-error").style.display = "none";
+
+                    await fetch("/JoinBusiness/CreateVerifyTicket", {
+                        method: "POST",
+                    })
+                }else
+                {
+                    let respBody = await resp.json();
+                    
+                    document.querySelector("#change-num-error").textContent = respBody.resultMessage;
+                    
+                    document.querySelector("#change-num-error").style.display =  "block";
+                    
+                    document.querySelector("EmailAndMobileVerification_VerifyCode").focus();
+                    
+                    HideProgress();
+                }
+                
+                });
+            });
+        $('#verifyButton').click(
+           async function () {
+                ShowProgress();
+               
+                let code = $('#EmailAndMobileVerification_VerifyCode').val();
+                
+                if (!ValidateValues([document.querySelector("#EmailAndMobileVerification_VerifyCode")]))
+                    return;
+                
+                let today = new Date();
+                let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+
+                date += " " + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                
+                let resp;
+                if (code.length > 0)
+                            resp = await fetch("/JoinBusiness/VerifyPhone/code=" + code, 
+                                {
+                                method : "POST",
+                                headers : 
+                                {
+                                    "Language" : "@Html.Raw(Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName)",
+                                    "CurrentTime" : date,
+                                    "TimeZoneOffset" : new Date().getTimezoneOffset()
+                                }
+                                })
+                            
+                            if (resp.ok)
+                            {
+                                 let d = await resp.json();
+     
+                                 if (d.ResultCode < 0) {
+                                     let alert = document.createElement('p');
+                                     alert.textContent = d.resultMessage;
+                                     document.querySelector(".email-verification").querySelector('p').appendChild(alert);
+                                     $('#answer').html('');
+                                     $('#answer').removeClass('text-danger')
+                                     HideProgress();
+                                 }
+                                 else {
+                                     let iso = "@Html.Raw(currentLanguage)";
+                                     window.location.href =  iso === 'en' ? `/join-business/` : `/${iso}/join-business/`
+                                     HideProgress();
+                                 }                           
+                            }else
+                            {
+                                HideProgress();
+                                $('#EmailAndMobileVerification_VerifyCode').addClass('is-invalid');
+                                document.querySelector("#EmailAndMobileVerification_VerifyCode").focus();
+                            }
+    })
+    async function handleResponse(resp)
+    {
+        //alert("handle");
+        let response = await resp.json();
+        if (response.ResultCode < 0) {
+            oldMessage = $('#answer').html();
+            $('#answer').html(response.ResultMessage);
+            $('#answer').addClass('text-danger')
+            $('#log').html('');
+            let answer = document.querySelector("#answer");
+            answer.setAttribute("tabindex", "0");
+            answer.focus();
+        }
+        else
+        {
+            $('#answer').removeClass('text-danger')
+            //PhoneNumber = response.Mobile;
+
+           // alert(PhoneNumber);
+            $('#answer').html(`${WeJustSent} <strong>${PhoneNumber}</strong>`);
+            /*$('#log').html(response.ResultMessage);*/
+        }
+
+    }
+    function ShowPhone()
+    {
+        document.getElementById("EmailAndMobileVerification_NewMobile").value = PhoneNumber;
+        $("#change-phone").removeClass("d-none");
+        $("#change-phone-btn").removeClass("d-inline-block");
+        $("#change-phone-btn").addClass("d-none");
+    }
+    function HidePhone()
+    {
+        $("#change-phone").addClass("d-none");
+        $("#change-phone-btn").addClass("d-inline-block");
+        $("#change-phone-btn").removeClass("d-none"); 
+    }
+     var modal, loading;
+    function ShowProgress() {
+        modal = document.createElement("DIV");
+        modal.className = "modal";
+        document.body.appendChild(modal);
+        loading = document.getElementsByClassName("loading")[0];
+        loading.style.display = "block";
+        var top = Math.max(window.innerHeight / 2 - loading.offsetHeight / 2, 0);
+        var left = Math.max(window.innerWidth / 2 - loading.offsetWidth / 2, 0);
+        loading.style.top = top + "px";
+        loading.style.left = left + "px";
+        $("#login").prop("disabled", true);
+        $("#register").prop("disabled", true);
+        $("input").attr('disabled','disabled');
+        $("button").attr('disabled','disabled');
+        $("a").attr('disabled','disabled');
+
+    }
+
+    function HideProgress() {
+        document.body.removeChild(modal);
+        loading.style.display = "none";
+        $("#login").prop("disabled", false);
+        $("#register").prop("disabled", false);
+        $("input").removeAttr('disabled');
+        $("button").removeAttr('disabled');
+        $("a").removeAttr('disabled');
+    }
+    function ValidateValues(domObjectsArray)
+        {
+            let isValid = true;
+            let elemInScroll = false;
+            for (let i = 0; i < domObjectsArray.length; i++)
+            {
+                if(domObjectsArray[i].value == '')
+                {
+                    domObjectsArray[i].classList.add("customWarning");
+                    if(!elemInScroll){
+                        domObjectsArray[i].focus();
+                        elemInScroll = true;
+                    }
+                    isValid = false;
+                    HideProgress();
+                }else
+                {
+                    domObjectsArray[i].classList.remove("customWarning");
+                }
+            }
+            
+            return isValid;
+        }
+</script>

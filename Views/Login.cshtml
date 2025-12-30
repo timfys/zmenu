@@ -1,0 +1,64 @@
+﻿@using Menu4Tech.Helper
+@using Menu4Tech.Models
+@inherits UmbracoViewPage
+
+@{
+    Layout = "/Views/master.cshtml";
+    var usedIso = Cooking.GetCookie(Cooking.LastUsedSignInIso);
+}
+
+<div class="login-form">
+
+    <p class="main-page-header">@Umbraco.GetDictionaryValue("Sign In")</p>
+    <p class="login-page-text">@Umbraco.GetDictionaryValue("Enter your phone number")</p>
+    @Html.Partial("/Views/Partials/MobileInput.cshtml", new MobileInputModel("Mobile", string.IsNullOrEmpty(usedIso) ? UserManager.GetUserCountryIsoFromCloudFlare() : "", ""))
+    <p class="error-message" style="display: none"></p>
+    <div class="button button--accent kd-fadeIn" type="button" id="login" onclick="TryFindUser()">@Umbraco.GetDictionaryValue("Login")</div>
+</div>
+
+<script>
+    async function TryFindUser(){
+
+        let phoneElem = document.querySelector("#Mobile");
+
+        let errorElem = document.querySelector(".error-message");
+        
+        if (phoneElem.value.length == 0){
+            errorElem.style.display = "block";
+            errorElem.textContent = "@Html.Raw(Umbraco.GetDictionaryValue("Please specify the phone number and country code"))";
+            phoneElem.classList.add("error");
+            return;
+        }
+        
+        phoneElem.classList.remove("error")
+        errorElem.style.display = "none";
+        
+        DisplayLoadingScreen();
+        
+        let data = GetMobileComboSelectedCountry("Mobile");
+
+        let body = {
+            Mobile : phoneElem.value,
+            PhonePrefix : data.CountryCode,
+            Country : data.CountryIso
+        }
+        
+        let resp = await fetch(`@Html.Raw(Url.Action("TryFindUser", "JoinBusinessApi"))`, {
+            method : "POST",
+            headers  : {
+                "Content-Type" : "application/json",
+                'X-Fetch-Indicator': 'true'
+            },
+            body : JSON.stringify(body)
+        })
+
+        if (resp.ok){
+            CloseLoadingScreen();
+            window.location.href = resp.headers.get("Location");
+        }else{
+            errorElem.style.display = "block";
+            errorElem.textContent = await resp.text();
+        }
+        CloseLoadingScreen();
+    }
+</script>

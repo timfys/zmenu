@@ -1,0 +1,51 @@
+.members {
+    & .row {
+        align-items: flex-end;
+        background-color: var(--color-white);
+        border-radius: var(--border-radius);
+
+        @include tablet {
+            flex-direction: column-reverse;
+            align-items: center;
+        }
+    }
+
+    & .column {
+        padding: 24px 24px 24px 0;
+
+        @include tablet {
+            padding: 20px 20px 0px 20px;
+
+        }
+    }
+
+    & h2 {
+        margin-bottom: 30px;
+
+        @include phone {
+            margin-bottom: 15px;
+        }
+    }
+
+    & ul {
+        margin: 0;
+    }
+
+    & .button {
+        margin-top: 48px;
+
+        @include tablet {
+            width: fit-content;
+            margin: 30px auto 0;
+        }
+    }
+
+    &__image {
+        max-width: 50%;
+
+        @include tablet {
+            max-width: 100%;
+            align-self: flex-start;
+        }
+    }
+}

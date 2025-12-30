@@ -1,0 +1,35 @@
+{
+    "BusinessApiConfiguration": {
+        "EndpointAddress": "http://lease4.mekashron.com:33322/soap/IBusinessAPI",
+        "Timeout": 120,
+        "ol_EntityId": 6116,
+        "ol_UserName": "menu4u",
+        "ol_Password": "menu4u",
+        "BusinessId" : 1,
+        "ol_AdminUserName": "website-admin",
+        "ol_AdminPassword": "website-admin",
+        "AdminBusinessId" : 0,
+        "MaxBufferSize" : 100000
+    },
+    "SmtpClientConfiguration": {
+        "SmtpHost": "mail.cubewebmail.com",
+        "SmtpPort": 25,
+        "SmtpUseSsl": false,
+        "SmtpLogin": "website-umbraco@smart-winners.com",
+        "SmtpPassword": "cf4Xn45&",
+        "Subject": "Website error",
+        "FromName": "SmartWinners new",
+        "FromAddress": "website-umbraco@smart-winners.com",
+        "ToName": "admin",
+        "ToAddress": "website2-errors@smart-winners.com",
+        "ToAddressTest": "artuninp@gmail.com"
+    },
+    "SeoConfiguration": {
+        "CacheControlExpireTime": 0,
+        "CacheControlPath": [
+            "/assets",
+            "/images"
+        ],
+        "RamCacheTime": 30
+    }
+}

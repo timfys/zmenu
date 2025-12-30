@@ -1,0 +1,586 @@
+﻿    @using Menu4Tech.Helper
+    @using Umbraco.Cms.Web.Common.PublishedModels;
+    @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.PosForRetailers>
+    @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+    @using System.Threading
+
+    @{
+        Layout = "master.cshtml";
+        var currentLanguage = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
+    }
+
+    <main class="main" id="primary">
+        <section class="hero">
+            <div class="container">
+                <div class="row">
+                    <div class="column">
+                        <h1>
+                            <span style="color: var(--color-accent);">In 20 minutes</span>, you will have a running retail POS solution
+                        </h1>
+                        <p>Running a retail business is demanding, so we built a POS system that is simple, fast, and reliable.</p>
+                        <p>How simple? In just 20 minutes, your retail POS will be fully set up and ready to sell.</p>
+                        <div class="buttons">
+                            <a href="https://www.zmenu.net/blog/@Html.Raw(currentLanguage)/page/in-20-minutes-you-will-have-a-running-pos-solution"
+                               target="_blank" class="button">@Umbraco.GetDictionaryValue("See details")</a>
+                            <a href="@Html.Raw(TranslationHelper.OverridePathWithCurrentCulture("/JoinBusiness/Login"))"
+                               class="button button--accent">@Umbraco.GetDictionaryValue("Let’s start")</a>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <picture>
+                            <source srcset="/assets/images/hero-mobile.png" media="(max-width: 560px)">
+                            @*<img src="/assets/images/hero-image.png" alt="restaurant POS interface">*@
+                        </picture>
+                        <div class="icons-platforms">
+                            <img src="/assets/images/icons/apple.svg" alt="apple">
+                            <img src="/assets/images/icons/android.svg" alt="android">
+                            <img src="/assets/images/icons/windows.svg" alt="windows">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="steps">
+            <div class="container">
+                <h2 class="center">@Html.Raw(Umbraco.GetDictionaryValue("Only 4 steps"))</h2>
+                <ul class="steps__list">
+                    <li>
+                        <div class="row">
+                            <span class="counter"></span>
+                            <h3 class="step__title">@Umbraco.GetDictionaryValue("Registration")</h3>
+                        </div>
+                        <p class="step__text">Quick signup to create your retail business account.</p>
+                    </li>
+                    <li>
+                        <div class="row">
+                            <span class="counter"></span>
+                            <h3 class="step__title">@Umbraco.GetDictionaryValue("Customization")</h3>
+                        </div>
+                        <p class="step__text">Add your products, categories, prices, taxes, barcodes, and staff, or import everything automatically from your existing POS.</p>
+                    </li>
+                    <li>
+                        <div class="row">
+                            <span class="counter"></span>
+                            <h3 class="step__title">@Umbraco.GetDictionaryValue("Installation")</h3>
+                        </div>
+                        <p class="step__text">Install the POS app on tablets, smartphones, or Windows PCs and start selling immediately.</p>
+                    </li>
+                    <li>
+                        <div class="row">
+                            <span class="counter"></span>
+                            <h3 class="step__title">Start selling</h3>
+                        </div>
+                        <p class="step__text">Accept payments, manage inventory, and track sales in real time from one dashboard.</p>
+                    </li>
+                </ul>
+                <div class="buttons row">
+                    <a href="@Html.Raw(TranslationHelper.OverridePathWithCurrentCulture("/JoinBusiness/Login"))"
+                       class="button button--accent">@Umbraco.GetDictionaryValue("Let’s start")</a>
+                    <a href="https://www.zmenu.net/blog/@Html.Raw(currentLanguage)/page/in-20-minutes-you-will-have-a-running-pos-solution"
+                       target="_blank" class="button">@Umbraco.GetDictionaryValue("See details")</a>
+                </div>
+            </div>
+        </section>
+        <section class="working">
+            <div class="container">
+                <div class="working__inner row">
+                    <div class="column">
+                        <h2 class="">
+                            Built for Retail Businesses                    </h2>
+                        <p>
+                            Zmenu’s retail POS system is designed for stores of all sizes, from single location shops to growing retail chains.
+                        </p>
+                        <h3>Key Retail Features</h3>
+                        <ul>
+                            <li>Fast checkout with barcode scanning</li>
+                            <li>Real time inventory management</li>
+                            <li>Product variants, SKUs, and categories</li>
+                            <li>Staff permissions and shift tracking</li>
+                            <li>Customer profiles and purchase history</li>
+                            <li>Promotions, discounts, and loyalty programs</li>
+                            <li>Detailed sales and stock reports</li>
+                            <li>Cloud based with offline mode support</li>
+                        </ul>
+                        @*<a href="https://www.zmenu.net/blog/@Html.Raw(currentLanguage)/page/working-from-the-waiter-s-phone"
+                           target="_blank" class="button">@Umbraco.GetDictionaryValue("Read in detail")</a>*@
+                    </div>
+                    <div class="column">
+                        <img class="" src="/assets/images/phone.png" alt="waiter using restaurant POS on phone">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="serve" data-mobile-bg="/assets/images/serve-bg.png" data-desktop-bg="">
+            <div class="container">
+                <div class="row">
+                    <div class="column">
+                        @*<img src="/assets/images/internet.png"
+                             alt="waiter using restaurant POS with no internet or electricity">*@
+                    </div>
+                    <div class="column">
+                        <h2 class="">Sell Anywhere, Anytime</h2>
+                        <p>Use the same POS system across all your devices:</p>
+                        <ul>
+                            <li>iOS</li>
+                            <li>Android</li>
+                            <li>Windows</li>
+                        </ul>
+                        <p>Your data stays synced automatically, even when switching between devices or locations.</p>
+                        @*<a href="https://www.zmenu.net/blog/@Html.Raw(currentLanguage)/page/continue-to-serve-even-if-the-internet-or-electricity-goes-down"
+                           target="_blank" class="button button--accent">@Umbraco.GetDictionaryValue("Read in detail")</a>*@
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <section class="decisions">
+            <div class="container">
+                <div class="row">
+                    <div class="column">
+                        <h2 class="">
+                            Designed to Grow With You                    </h2>
+                        <p>
+                            Whether you run a clothing store, convenience shop, electronics store, or specialty retail business, Zmenu adapts to your workflow.                    </p>
+                        <p>
+                            You can easily:
+                        </p>
+                        <ul>
+                            <li>Add new locations</li>
+                            <li>Manage multiple stores</li>
+                            <li>Track best selling products</li>
+                            <li>Control stock across branches</li>
+                        </ul>
+                    </div>
+                    @*<div class="column">
+                        <ul class="decisions__list">
+                            <li class="decisions__item">
+                                <svg width="47" height="43" viewBox="0 0 47 43" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M0.09375 0.682129H2.52564V39.5924H7.38942V15.2735H17.117V39.5924H21.9808V5.54591H31.7083V39.5924H36.5721V25.001H46.2997V42.0243H0.09375V0.682129ZM39.004 27.4329V39.5924H43.8678V27.4329H39.004ZM24.4127 7.9778V39.5924H29.2764V7.9778H24.4127ZM9.82131 17.7054V39.5924H14.6851V17.7054H9.82131Z"
+                                        fill="black"/>
+                                </svg>
+                                <p>@Umbraco.GetDictionaryValue("Smart Recommendations – Get AI-powered suggestions to improve efficiency and increase revenue.")</p>
+                            </li>
+                            <li class="decisions__item">
+                                <svg width="37" height="45" viewBox="0 0 37 45" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M8.31412 31.8319C4.37857 28.7438 1.84814 23.9429 1.84814 18.5516C1.84814 9.2347 9.40072 1.68213 18.7176 1.68213C28.0346 1.68213 35.5871 9.2347 35.5871 18.5516C35.5871 23.9429 33.0577 28.7438 29.1212 31.8319C28.8308 32.9914 28.5091 34.143 28.1566 35.2852C27.853 36.2755 27.0303 36.9949 25.9993 37.1031C24.617 37.247 22.286 37.4058 18.7176 37.4058C15.1492 37.4058 12.8183 37.247 11.436 37.1031C10.4049 36.9949 9.58231 36.2755 9.27866 35.2842C8.99387 34.3583 8.63365 33.1209 8.31412 31.8319Z"
+                                        stroke="black" stroke-width="2.0126" stroke-linecap="round"
+                                        stroke-linejoin="round"/>
+                                    <path
+                                        d="M11.2633 37.0785C11.4647 38.3784 11.6741 39.5613 11.8488 40.496C12.0969 41.8109 13.0316 42.8667 14.3544 43.0661C15.3924 43.2239 16.8342 43.3599 18.7176 43.3599C20.5088 43.3599 21.9804 43.2368 23.1007 43.09C24.6726 42.8836 25.7741 41.5757 25.9447 39.9989L26.2633 37.0616M28.6409 17.5595C28.6409 12.0789 24.1982 7.63623 18.7176 7.63623"
+                                        stroke="black" stroke-width="2.0126" stroke-linecap="round"
+                                        stroke-linejoin="round"/>
+                                </svg>
+                                <p>@Umbraco.GetDictionaryValue("Performance Analysis – Instantly see which menu items, staff, and shifts are driving profits.")</p>
+                            </li>
+                            <li class="decisions__item">
+                                <svg width="47" height="52" viewBox="0 0 47 52" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M23.901 28.6408C31.4655 28.6408 37.5978 22.5085 37.5978 14.9439C37.5978 7.37936 31.4655 1.24707 23.901 1.24707C16.3364 1.24707 10.2041 7.37936 10.2041 14.9439C10.2041 22.5085 16.3364 28.6408 23.901 28.6408Z"
+                                        stroke="black" stroke-width="2.0126" stroke-linecap="round"
+                                        stroke-linejoin="round"/>
+                                    <path
+                                        d="M45.8158 50.5556C45.8158 44.7434 43.5069 39.1692 39.397 35.0594C35.2872 30.9495 29.713 28.6406 23.9008 28.6406C18.0886 28.6406 12.5144 30.9495 8.40459 35.0594C4.29473 39.1692 1.98584 44.7434 1.98584 50.5556"
+                                        stroke="black" stroke-width="2.0126" stroke-linecap="round"
+                                        stroke-linejoin="round"/>
+                                </svg>
+                                <p>@Umbraco.GetDictionaryValue("Customer Trends – Understand guest behavior, loyalty patterns, and sales cycles to make better business choices.")</p>
+                            </li>
+                            <li class="decisions__item">
+                                <svg width="69" height="39" viewBox="0 0 69 39" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M49.793 1.33594H67.6967V19.2397" stroke="white" stroke-width="2.0126"
+                                          stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path
+                                        d="M1.19702 37.1434L20.5986 17.7418C21.0736 17.2667 21.6376 16.8898 22.2583 16.6326C22.879 16.3755 23.5443 16.2431 24.2161 16.2431C24.888 16.2431 25.5533 16.3755 26.174 16.6326C26.7947 16.8898 27.3586 17.2667 27.8336 17.7418L35.9447 25.8528C36.4197 26.328 36.9837 26.7049 37.6044 26.962C38.2251 27.2191 38.8903 27.3515 39.5622 27.3515C40.2341 27.3515 40.8993 27.2191 41.52 26.962C42.1407 26.7049 42.7047 26.328 43.1797 25.8528L65.139 3.89355"
+                                        stroke="white" stroke-width="2.0126" stroke-linecap="round"
+                                        stroke-linejoin="round"/>
+                                </svg>
+                                <p>@Umbraco.GetDictionaryValue("Profit Optimization – Receive alerts and insights that help reduce costs and boost earnings.")</p>
+                            </li>
+                        </ul>
+                    </div>*@
+                </div>
+            </div>
+        </section>
+
+        <section class="delivery">
+            <div class="container">
+                <div class="row">
+                    @*<img src="/assets/images/delivery.png" alt="phone with delivery route map">*@
+                    <div class="column">
+                        <h2 class="">Why Retailers Choose Zmenu
+                        </h2>
+                        @*<div class="delivery__info">
+                            <p>
+                                @Umbraco.GetDictionaryValue("No need for complicated setups or third-party apps—our POS comes with automatic connections to local delivery companies.")
+                            </p>
+                            <p>
+                                @Umbraco.GetDictionaryValue("With zMenu, managing deliveries is simple, fast, and fully integrated")
+                            </p>
+                        </div>*@
+                        <ul>
+                            <li>Setup in minutes, not days</li>
+                            <li>Simple interface for staff</li>
+                            <li>No complicated hardware requirements</li>
+                            <li>Reliable offline sales mode</li>
+                            <li>Centralized control and reporting</li>
+                        </ul>
+                        <a href="@Html.Raw(TranslationHelper.OverridePathWithCurrentCulture("/JoinBusiness/Login"))"
+                           class="button">@Umbraco.GetDictionaryValue("Open an account")</a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    @*<section class="software" data-mobile-bg="/assets/images/software-m.png" data-desktop-bg="">
+            <div class="container">
+                <div class="row">
+                    <div class="column">
+                        <h2 class="">
+                            @Html.Raw(Umbraco.GetDictionaryValue("360 software solution for small or huge restaurants"))
+                        </h2>
+                        <p>
+                            @Html.Raw(Umbraco.GetDictionaryValue("We have it all, POS solution, Delivery system, Call center solution for phone and internet ordering, ecommerce. add any of the sections to your business at any time and they will seamlessly get synced."))
+                        </p>
+                        <a href="https://www.zmenu.net/blog/@Html.Raw(currentLanguage)/page/360-software-solution-for-small-or-huge-restaurants"
+                           target="_blank" class="button button--accent">@Umbraco.GetDictionaryValue("Read in detail")</a>
+                    </div>
+                    <img class="software__image" src="/assets/images/software.png"
+                         alt="waiter using restaurant POS on tablet">
+                </div>
+            </div>
+        </section>
+
+        <section class="members">
+            <div class="container">
+                <div class="row">
+                    <img class="members__image" src="/assets/images/members.png"
+                         alt="mobile and desktop restaurant POS customer invitation interface">
+
+                    <div class="column">
+                        <h2 class="">
+                            @Html.Raw(Umbraco.GetDictionaryValue("Full club members and loyalty management"))
+                        </h2>
+                        <p>
+                            @Umbraco.GetDictionaryValue("Each waiter can input customers phone numbers to manage your club members.")
+                        </p>
+                        <ul>
+                            <li>
+                                @Umbraco.GetDictionaryValue("offer discounts to returning customers.")
+                            </li>
+                            <li>
+                                @Umbraco.GetDictionaryValue("Know your customers, give personal service that increases tips to waiters and returning customers.")
+                            </li>
+                        </ul>
+                        <a href="https://www.zmenu.net/blog/@Html.Raw(currentLanguage)/page/full-club-members-and-loyalty-management"
+                           target="_blank" class="button">@Umbraco.GetDictionaryValue("Read in detail")</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="design">
+            <div class="container">
+                <div class="row">
+                    <div class="column">
+                        <h2 class="">
+                            @Html.Raw(Umbraco.GetDictionaryValue("Design your floor plan"))
+                        </h2>
+                        <p>
+                            @Umbraco.GetDictionaryValue("With just a tap and slide, increase set tables in your floor plan that reflects your restaurant layout—work from a POS system that works for you and make real-time adjustments")
+                        </p>
+                        <ul>
+                            <li>
+                                @Umbraco.GetDictionaryValue("Move tables and adjust your floor plan so your staff always know where to go")
+                            </li>
+                            <li>
+                                @Umbraco.GetDictionaryValue("Accommodate last-minute reservations and special requests on the spot")
+                            </li>
+                            <li>
+                                @Umbraco.GetDictionaryValue("Use custom images for tables, seats and decor to properly represent your space")
+                            </li>
+                            <li>
+                                @Umbraco.GetDictionaryValue("Follow your guests and easily transfer items to a different table, chair, or floor plan")
+                            </li>
+                        </ul>
+                        <img class="design__image" src="/assets/images/design.png"
+                             alt="desktop restaurant POS tables position management interface">
+                        <a href="@Html.Raw(TranslationHelper.OverridePathWithCurrentCulture("/JoinBusiness/Login"))"
+                           class="button button--accent">@Umbraco.GetDictionaryValue("Let’s start")</a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="payment">
+            <div class="container">
+                <div class="row">
+                    <img class="payment__image" src="/assets/images/payment.png"
+                         alt="terminal with card and VISA, Mastercard, Apple Pay and Google pay payment methods">
+
+                    <div class="column">
+                        <h2 class="">
+                            @Html.Raw(Umbraco.GetDictionaryValue("Offer contactless payments to your customers and staff"))
+                        </h2>
+                        <p>
+                            @Umbraco.GetDictionaryValue("Handle all swipes, taps, tips, and splits with an EMV-compliant terminal restaurant POS software at no extra cost. If you're on the go, offer fast mobile payments with our integration solution.")
+                        </p>
+                        <p>
+                            @Umbraco.GetDictionaryValue("Offer fast transactions anywhere")
+                        </p>
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="whom">
+            <div class="container">
+                <h2>@Html.Raw(Umbraco.GetDictionaryValue("Suitable for whom"))</h2>
+                <ul class="whom__list">
+                    <li>
+                        <img src="/assets/images/icons/food.svg" alt="fast food icon">
+                        <p>@Umbraco.GetDictionaryValue("Fast food")</p>
+                    </li>
+                    <li>
+                        <img src="/assets/images/icons/cafe.svg" alt="cafes icon">
+                        <p>@Umbraco.GetDictionaryValue("Cafes")</p>
+                    </li>
+                    <li>
+                        <img src="/assets/images/icons/bars.svg" alt="bar counter icon">
+                        <p>@Umbraco.GetDictionaryValue("Bars")</p>
+                    </li>
+                    <li>
+                        <img src="/assets/images/icons/hotels.svg" alt="hotels icon">
+                        <p>@Umbraco.GetDictionaryValue("Hotels")</p>
+                    </li>
+                    <li>
+                        <img src="/assets/images/icons/restaurants.svg" alt="restaurant table icon">
+                        <p>@Umbraco.GetDictionaryValue("Restaurants")</p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="wrap">
+            <div class="container">
+                <div class="row">
+                    <div class="column">
+                        <h2 class="">
+                            @Html.Raw(Umbraco.GetDictionaryValue("The restaurant POS system that with your business"))
+                        </h2>
+                        <p>
+                            @Umbraco.GetDictionaryValue("Are you opening a new location? Oversee it from the same point of sale system as your current locations. Lightspeed Restaurant centralizes your business so you can manage them all at once")
+                        </p>
+                        <p>
+                            @Html.Raw(Umbraco.GetDictionaryValue("Manage all your locations"))
+                        </p>
+                    </div>
+                    <img class="payment__image" src="/assets/images/scales.png" alt="growing restaurant icons">
+                </div>
+            </div>
+        </section>
+
+        <section class="whom">
+            <div class="container">
+                <h2>@Umbraco.GetDictionaryValue("Stay efficient with built-in tools designed for your industry.")</h2>
+                <ul class="whom__list">
+                    <li>
+                        <img src="/assets/images/icons/kiosk.svg" alt="order kiosk icon">
+                        <p>@Umbraco.GetDictionaryValue("Order Kiosks")</p>
+                    </li>
+                    <li>
+                        <img src="/assets/images/icons/menu.svg" alt="menu icon">
+                        <p>@Umbraco.GetDictionaryValue("Combos Menu Modifiers")</p>
+                    </li>
+                    <li>
+                        <img src="/assets/images/icons/display.svg" alt="phone icon">
+                        <p>@Umbraco.GetDictionaryValue("Customer-Facing Display")</p>
+                    </li>
+                    <li>
+                        <img src="/assets/images/icons/firing.svg" alt="chef's hat icon">
+                        <p>@Umbraco.GetDictionaryValue("One-Tap Order Firing")</p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        <section class="">
+            <div class="container">
+                <h2>
+                    @Html.Raw(Umbraco.GetDictionaryValue("Use restaurant data and reports to increase your profits"))
+                </h2>
+                <p>
+                    @Umbraco.GetDictionaryValue("Get unrestricted access")
+                </p>
+            </div>
+        </section>
+
+        <section class="reviews">
+            <div class="container">
+                <h2>@Umbraco.GetDictionaryValue("Customer reviews")</h2>
+                <div class="slider">
+                    <div class="swiper" id="reviews">
+                        <ul class="swiper-wrapper">
+                            <li class="swiper-slide">
+                                <div class="author">
+                                    <img src="/assets/images/reviews/rev-1.png" alt="">
+                                    <h4>@Umbraco.GetDictionaryValue("Emily Vargas, Manager at Olive")</h4>
+                                </div>
+                                <p>
+                                    @Umbraco.GetDictionaryValue("We switched to POS")
+                                </p>
+                            </li>
+
+                            <li class="swiper-slide">
+                                <div class="author">
+                                    <img src="/assets/images/reviews/rev-2.png" alt="reviewer image">
+                                    <h4>@Umbraco.GetDictionaryValue("Daniel Kim, Owner of Mellow Coffee House")</h4>
+                                </div>
+                                <p>
+                                    @Umbraco.GetDictionaryValue("As a small cafe owner")
+                                </p>
+                            </li>
+                            <li class="swiper-slide">
+                                <div class="author">
+                                    <img src="/assets/images/reviews/rev-3.png" alt="reviewer image">
+                                    <h4>@Umbraco.GetDictionaryValue("Sofia Legrand, Operations Director at La Taverna")</h4>
+                                </div>
+                                <p>
+                                    @Umbraco.GetDictionaryValue("Adding delivery and call center modules")
+                                </p>
+                            </li>
+                            <li class="swiper-slide">
+                                <div class="author">
+                                    <img src="/assets/images/reviews/rev-4.png" alt="reviewer image">
+                                    <h4>@Umbraco.GetDictionaryValue("Marcus Bell, Owner of The Urban Spoon Group")</h4>
+                                </div>
+                                <p>
+                                    @Umbraco.GetDictionaryValue("We run three restaurants across the city")
+                                </p>
+                            </li>
+
+
+                        </ul>
+                    </div>
+                    <div class="swiper__navigation">
+                        <div class="swiper-button-prev reviews-button-prev"></div>
+                        <div class="swiper-button-next reviews-button-next"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="support">
+            <div class="container">
+                <div class="row">
+                    <h2>@Umbraco.GetDictionaryValue("24/7 support and training")</h2>
+                    <div class="support__item">
+                        <img src="/assets/images/icons/Onboarding.svg" alt="student hat icon">
+                        <p>@Umbraco.GetDictionaryValue("Onboarding")</p>
+                    </div>
+                    <div class="support__item">
+                        <img src="/assets/images/icons/videos.svg" alt="play button icon">
+                        <p>@Umbraco.GetDictionaryValue("Guides, videos, demos")</p>
+                    </div>
+                    <div class="support__item">
+                        <img src="/assets/images/icons/support.svg" alt="headphones icon">
+                        <p>@Umbraco.GetDictionaryValue("Round-the-clock support")</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="col">
+            <div class="container">
+                <div class="row">
+                    <div class="column">
+                        <h2>@Umbraco.GetDictionaryValue("Everything you need, in one place")</h2>
+                        <p>
+                            @Umbraco.GetDictionaryValue("All our software integrates seamlessly with each other, making it an unbeatable suite of hospitality solutions.")
+                        </p>
+                        <p>
+                            @Html.Raw(Umbraco.GetDictionaryValue("One company to trust"))
+                        </p>
+                    </div>
+                    <div class="column">
+                        <h2>@Umbraco.GetDictionaryValue("Sleek restaurant hardware with seamless POS integration")</h2>
+                        <p>
+                            @Umbraco.GetDictionaryValue("Kitchen printers designed for hot and humid environments")
+                        </p>
+                    </div>
+                </div>
+                <a href="#" class="button button--accent">@Umbraco.GetDictionaryValue("Open my restaurant")</a>
+            </div>
+        </section>
+        *@
+        <section class="launch">
+            <div class="container">
+                <div class="row">
+                    <div class="column">
+                        <h2>@Umbraco.GetDictionaryValue("Are you ready to launch?")</h2>
+                        <div class="buttons">
+                            <a href="@Html.Raw(TranslationHelper.OverridePathWithCurrentCulture("/JoinBusiness/Login"))"
+                               class="button button--accent">@Umbraco.GetDictionaryValue("Let’s start")</a>
+                            <a href="#" class="button button--white">@Umbraco.GetDictionaryValue("Download")</a>
+
+                        </div>
+                        <div class="icons-platforms">
+                            <img src="/assets/images/icons/apple.svg" alt="apple">
+                            <a href="https://play.google.com/store/apps/details?id=com.mekashron.restaurantpos"
+                               target="_blank"><img src="/assets/images/icons/android.svg" alt="android"></a>
+                            <img src="/assets/images/icons/windows.svg" alt="windows">
+                        </div>
+                    </div>
+                    <img class="launch__image" src="/assets/images/devices.png"
+                         alt="monitor, iphone and android device image">
+                </div>
+            </div>
+        </section>
+        <section class="faq" id="faq">
+            <div class="container">
+                <h2>@Umbraco.GetDictionaryValue("FAQ")</h2>
+                <ul class="faq__list">
+                    <li class="faq__item">
+                        <div class="action">
+                            <h4>@Umbraco.GetDictionaryValue("Will the POS still work if the internet goes down?")</h4>
+                            <button class="icon">
+                                <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6 9.5L12 15.5L18 9.5" stroke="#222222" stroke-width="2"
+                                          stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="content">
+                            <p>
+                                @Umbraco.GetDictionaryValue("Zmenu continues operating in offline mode")
+                            </p>
+                        </div>
+                    </li>
+                    <li class="faq__item">
+                        <div class="action">
+                            <h4>@Umbraco.GetDictionaryValue("Is support really available 24/7?")</h4>
+                            <button class="icon">
+                                <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6 9.5L12 15.5L18 9.5" stroke="#222222" stroke-width="2"
+                                          stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="content">
+                            <p>
+                                @Umbraco.GetDictionaryValue("Zmenu provides full 24 7 support")
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </main>

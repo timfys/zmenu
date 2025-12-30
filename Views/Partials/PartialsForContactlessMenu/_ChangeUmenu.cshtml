@@ -1,0 +1,26 @@
+﻿@inherits UmbracoViewPage
+@using System.Threading
+@{
+    var currentLanguage = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
+    var cssRTL = "";
+    if (currentLanguage == "he")
+    {
+    }
+    var url = new Uri("https://" + Context.Request.Host.Value + Context.Request.Path);
+    var lang = currentLanguage == "en" ? "" : "/" + currentLanguage;
+    var port = url.IsDefaultPort ? "" : ":" + url.Port;
+    var loginPage = lang + $"/login?t=1";
+}
+<section class="p-15-px " style="padding-top:80px;">
+    <div class="container white-bg row--shadow--box changemenu--container">
+        <div class="row m-t-15-px">
+            <div class="col-md-12 text-center" style="padding-bottom:25px;padding-top:15px;">
+                <h2 class="u-menu-title">@Umbraco.GetDictionaryValue("Change yoo menu")</h2>
+                <h4 class="u-menu-text">@Umbraco.GetDictionaryValue("You will never have to reprint a new QRCode")</h4>
+            </div>
+            <div class="col-md-12 text-center">
+                <a href="@(loginPage)"class="button-blue kd-fadeIn change-u-menu-btn">@Umbraco.GetDictionaryValue("Signup & Create your QR Code")</a>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,62 @@
+.working {
+
+    &__inner {
+        position: relative;
+        z-index: 1;
+        padding: 0 24px;
+        background-color: var(--color-white);
+        border-radius: var(--border-radius);
+        justify-content: start;
+        overflow: hidden;
+
+        @include tablet {
+            padding-block: 32px 50px;
+        }
+
+        & h2 {
+            margin-bottom: 25px;
+
+            @include mobile {
+                margin-bottom: 15px;
+                text-align: center;
+            }
+        }
+
+        & .column {
+            flex-basis: auto;
+        }
+
+        & img {
+            min-width: clamp(18.75rem, -17.614rem + 56.82vw, 25rem);
+
+            @include tablet {
+                position: absolute;
+                min-width: auto;
+                height: 100%;
+                right: -70px;
+                bottom: -25px;
+                z-index: -1;
+            }
+
+            @include mobile {
+                position: absolute;
+                width: 260px;
+                height: auto;
+                right: -70px;
+                bottom: -25px;
+                z-index: -1;
+            }
+        }
+
+        & .button {
+            margin-top: 50px;
+            display: inline-flex;
+            min-width: 328px;
+
+            @include mobile {
+                min-width: auto;
+            }
+        }
+    }
+
+}
