@@ -13,7 +13,7 @@ public class EnvironmentHelper
         get
         {
             var context = HttpContextAccessor.HttpContext;
-            return context.Request.Host.Value.Contains("beta") || context.Request.Host.Value.Contains("89.23.5.24") ? "ApiConfig.json" : "ApiConfig-Live.json";
+            return "ApiConfig.json";
         }
     }   
     public static BusinessApiConfiguration _businessApiConfiguration;

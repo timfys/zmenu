@@ -120,6 +120,8 @@
 <script src="~/Scripts/bootstrap.min.js"></script>
 <script src="~/Scripts/LIbs.js"></script>
 <script src="~/Scripts/Custom.js"></script>
+<script type="text/javascript" src="~/Scripts/ElemsScripts.js"></script>
+
 @RenderBody()
 <input type="hidden" id="please-wait-text" value="@Html.Raw(Umbraco.GetDictionaryValue("Please wait"))"/>
 @if (ViewBag.IgnoreFooter is null or false)
