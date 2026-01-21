@@ -24,10 +24,14 @@
     selection.RemoveAt(selection.FindIndex(x => x.Name.Equals("Store") || x.Name.Equals("Магазин") || x.Name.Equals("חנות")));
 
     var lang = currentLanguage == "en" ? "" : $"/{currentLanguage}";
+    var langForCrm = currentLanguage == "en" ? "en" : $"/{currentLanguage}";
+
     var port = url.IsDefaultPort ? "" : ":" + url.Port;
     var crmLoginPage = $"https://crm.menu4u.tech/{lang}/login";
-
+    
     var currentUser = Cooking.GetCookie<User>(Cooking.MainUserData);
+    var lid = currentUser != null ? UserManager.Login(currentUser?.Username, currentUser?.Password).Lid : "";
+    var crmOpenPage = $"https://crm.zmenu.net/restaurant/{langForCrm}/menus?lid={lid}";
 }
 
 
@@ -97,13 +101,13 @@
                        class="button button--white hidden-mobile">@Umbraco.GetDictionaryValue("Logout")</a>
                     @if (Model.Name == "Pos For A Retailers")
                     {
-                        <a href='~/umbraco/Surface/Home/RedirectToCrm'
-                           class="button button--accent">Open my store</a>
+                        <a
+                           class="button button--accent openmy">Open my store</a>
                     }
                     else
                     {
-                        <a href='~/umbraco/Surface/Home/RedirectToCrm'
-                           class="button button--accent">@Umbraco.GetDictionaryValue("Open my restaurant")</a>
+                        <a
+                           class="button button--accent openmy">@Umbraco.GetDictionaryValue("Open my restaurant")</a>
                     }
 
                 }
@@ -181,3 +185,12 @@
         </ul>
     </nav>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".openmy").on("click", function(e) {
+            e.preventDefault();
+            window.open("@crmOpenPage", "_blank");
+        });
+    });
+</script>

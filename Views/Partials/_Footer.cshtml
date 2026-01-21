@@ -1,6 +1,7 @@
 ﻿@inherits UmbracoViewPage
 @using System.Threading
 @using Menu4Tech.Helper
+@using Menu4Tech.Models
 @{
   var currentLanguage = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
   var cssRTL = "";
@@ -19,6 +20,11 @@
   //1191 WhatsUpp
   //1192 FaceBook
   //1193 YouTube
+  var langForCrm = currentLanguage == "en" ? "" : $"{currentLanguage}";
+    
+  var currentUser = Cooking.GetCookie<User>(Cooking.MainUserData);
+  var lid = currentUser != null ? UserManager.Login(currentUser?.Username, currentUser?.Password).Lid : "";
+  var crmOpenPage = $"https://crm.zmenu.net/{langForCrm}?lid={lid}";
 }
 
 
@@ -98,7 +104,7 @@
               </a>
             </li>
           </ul>
-          <a href="https://crm.zmenu.net/" target="_blank" class="button button--accent">@Umbraco.GetDictionaryValue("Manage my restaurant")</a>
+          <a class="button button--accent manage">@Umbraco.GetDictionaryValue("Manage my restaurant")</a>
         </div>
 
       </div>
@@ -116,7 +122,12 @@
       function gtag() {
         dataLayer.push(arguments);
       }
-
+      $(document).ready(function() {
+        $(".manage").on("click", function(e) {
+          e.preventDefault();
+          window.open("@crmOpenPage", "_blank");
+        });
+      });
       gtag('js', new Date());
       gtag('config', 'UA-2403722-1');
     </script>
