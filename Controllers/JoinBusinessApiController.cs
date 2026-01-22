@@ -1,9 +1,12 @@
 ﻿using System.Drawing;
 using System.Globalization;
 using System.ServiceModel;
+using Azure;
 using Menu4Tech.Helper;
 using Menu4Tech.IBusinessAPIservice;
 using Menu4Tech.Models;
+using Menu4Tech.Models.Api;
+
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Umbraco.Cms.Core.Cache;
@@ -201,5 +204,57 @@ public class JoinBusinessApiController : Controller
         return Ok(TranslationHelper.GetTranslatedMessage("Password have been changed"));
     }
 
+    [HttpPost]
+    [Route("{action}")]
+    public IActionResult CreateCompany([FromBody] JoinBusinessRequest model)
+    {
+        var config = EnvironmentHelper.BusinessApi2Configuration;
+        var currentUser = Cooking.GetCookie<User>(Cooking.MainUserData);
+
+        var client = config.InitClient();
+        client.Entity_Update(new Entity_UpdateRequest
+        {
+            ol_Password = config.ol_Password,
+            ol_Username = config.ol_UserName,
+            ol_EntityID = config.ol_EntityId,
+            EntityId = currentUser.Id,
+            NamesArray = new[]
+            {
+                "isBusiness",
+            },
+            ValuesArray = new[]
+            {
+                "1",
+            }
+        });
+        var businessId = JsonConvert.DeserializeObject<GeneralBusinessGetResponse>(client.General_Business_Get(new General_Business_GetRequest
+        {
+            ol_Password = currentUser.Password,
+            ol_UserName = currentUser.Username,
+            ol_EntityId = currentUser.Id,
+        }).@return.Replace("[","").Replace("]",""))?.BusinessId ?? 1;
+        client.General_Business_Update(new General_Business_UpdateRequest
+        {
+            ol_Password = config.ol_Password,
+            ol_Username = config.ol_UserName,
+            ol_EntityID = config.ol_EntityId,
+            BusinessId = businessId,
+            NamesArray = new[]
+            {
+                "entityId",
+                "BusinessName",
+                "Address",
+                "City",
+            },
+            ValuesArray = new[]
+            {
+                $"{currentUser.Id}",
+                model.CompanyName,
+                model.BrandAddress,
+                model.City,
+            }
+        });
+        return Ok();
+    }
     
 }

@@ -47,6 +47,7 @@ public class ApiLoginResponse : ApiResponse
 
 public class JoinBusinessRequest
 {
+    public int? EntityId { get; set; }
     public string CompanyName { get; set; }
     public string CompanyNumber { get; set; }
     public string BrandName { get; set; }

@@ -60,7 +60,7 @@ public class HomeController : SurfaceController
         if (HttpContext.Request.Host.Value.StartsWith("m."))
             return View("/Views/DigitalMenu.cshtml", currentPage);
         else if(HttpContext.Request.Host.Value.StartsWith("www."))
-            return Redirect(TranslationHelper.OverridePathWithCurrentCulture("/Restaurant-Pos-System"));
+            return Redirect(TranslationHelper.OverridePathWithCurrentCulture("/Pos-For-a-Restaurant"));
         else
             return View("/Views/Home.cshtml", currentPage);
     }

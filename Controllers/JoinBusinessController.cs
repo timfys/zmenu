@@ -40,6 +40,13 @@ public class JoinBusinessController : SurfaceController
         return Redirect(TranslationHelper.OverridePathWithCurrentCulture("/"));
     }
 
+    public IActionResult Index()
+    {
+        var currentPage = UmbracoContext.PublishedRequest.PublishedContent;
+
+        return View("/Views/JoinBusiness.cshtml", currentPage);
+    }
+
     [HttpGet]
     [Route("/{langIso}/{controller}/{action}")]
     [Route("/{controller}/{action}")]

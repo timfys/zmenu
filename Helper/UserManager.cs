@@ -47,6 +47,17 @@ public static class UserManager
         return JsonConvert.DeserializeObject<EntityLoginResponse>(resp.@return);
     }
     
+    public static ApiLoginResponse? Login2(string username, string password)
+    {
+        var config = EnvironmentHelper.BusinessApiConfiguration;
+        
+        var client = config.InitClient();
+
+        var resp = client.Ol_login(new Ol_loginRequest(username, password, GetUserIp(), GetPageCulture(), 4, null, null));
+
+        return JsonConvert.DeserializeObject<ApiLoginResponse>(resp.@return);
+    }
+    
     public static EntityAddResponse Add(string? firstName, string? lastName, string? email, string phone, string country, string? password = null)
     {
         var config = EnvironmentHelper.BusinessApiConfiguration;

@@ -1,5 +1,7 @@
 ﻿@using Menu4Tech.Helper
+@using Menu4Tech.IBusinessAPIservice
 @using Menu4Tech.Models
+
 @inherits UmbracoViewPage
 
 @{
@@ -22,6 +24,10 @@
             <input id="verification-code" autofocus class="code-input" style="height: fit-content !important; color: black;" required="required" type="number" value="@Context.Request.Query["vc"]" tabindex=1>
         </div>
         <p class="error-message" style="display: none"></p>
+        <button id="send_again_whatsapp" style="border: none; background: none; display: flex; align-items: center; gap: 8px; padding: 12px; cursor: pointer;">
+            <img src="/assets/images/contacts/whatsapp.svg" style="width: 55px; height: 55px;" alt="Whatsapp">
+            <span style="color: #0088cc; font-size: 26px;">Verify with Whatsapp</span>
+        </button>
         <button id="send_again_telegram" style="border: none; background: none; display: flex; align-items: center; gap: 8px; padding: 0; cursor: pointer;">
             <img src="/assets/images/contacts/Telegram.svg" alt="Telegram">
             <span style="color: #0088cc; font-size: 26px;">Verify with Telegram</span>

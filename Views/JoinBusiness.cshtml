@@ -2,8 +2,11 @@
 @using System.Threading
 @using Newtonsoft.Json
 @inherits UmbracoViewPage
+@using Menu4Tech.Models
+
 @{
-    Layout = "master.cshtml";
+    Layout = "/Views/master.cshtml";
+    
     int state = 0;
     var currentLanguage = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
     var cssRTL = "";
@@ -12,16 +15,8 @@
 
     var apiResponse = new ApiResponse();
     
-    try
-    {
-        request = JsonConvert.DeserializeObject<UserApiAccessData>(Context.Request.Cookies["UserInfo"]);
-
-    }
-    catch
-    {
-        Context.Response.Redirect("/login?t=1");
-    }
-    
+    var currentUser = Cooking.GetCookie<User>(Cooking.MainUserData);
+    if(currentUser == null) Context.Response.Redirect("/JoinBusiness/Login");
     if (currentLanguage == "he")
     {
         cssRTL = "rtl--label";
@@ -72,34 +67,34 @@
                         <small class="form-text text-muted">@Umbraco.GetDictionaryValue("Please enter your realy company name.")</small>
                     </div>
                 </div>
-                <p class="h6 h5-sm font-weight-bold mt-3 mt-md-4 pt-3  text-444">@Umbraco.GetDictionaryValue("Company number:")</p>
-                <div class="form-group">
-                    <div>
-                        <div class="input-group input-group-lg">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">
-                                    <i class="fab fa-draft2digital"></i>
-                                </div>
-                            </div>
-                            <input class="form-control" placeholder="" maxlength="36" type="text" id="companyNumber" name="companyNumber">
-                        </div>
-                        <small class="form-text text-muted">@Umbraco.GetDictionaryValue("Please enter your realy company number.")</small>
-                    </div>
-                </div>
-                <p class="h6 h5-sm font-weight-bold mt-3 mt-md-4 pt-3  text-444">@Umbraco.GetDictionaryValue("Brand/Branch Name:")</p>
-                <div class="form-group">
-                    <div>
-                        <div class="input-group input-group-lg">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">
-                                    <i class="far fa-copyright"></i>
-                                </div>
-                            </div>
-                            <input class="form-control" placeholder="" maxlength="36" type="text" id="brand" name="brand">
-                        </div>
-                        <small class="form-text text-muted">@Umbraco.GetDictionaryValue("Please enter your realy brand name.")</small>
-                    </div>
-                </div>
+                @* <p class="h6 h5-sm font-weight-bold mt-3 mt-md-4 pt-3  text-444">@Umbraco.GetDictionaryValue("Company number:")</p> *@
+                @* <div class="form-group"> *@
+                @*     <div> *@
+                @*         <div class="input-group input-group-lg"> *@
+                @*             <div class="input-group-prepend"> *@
+                @*                 <div class="input-group-text"> *@
+                @*                     <i class="fab fa-draft2digital"></i> *@
+                @*                 </div> *@
+                @*             </div> *@
+                @*             <input class="form-control" placeholder="" maxlength="36" type="text" id="companyNumber" name="companyNumber"> *@
+                @*         </div> *@
+                @*         <small class="form-text text-muted">@Umbraco.GetDictionaryValue("Please enter your realy company number.")</small> *@
+                @*     </div> *@
+                @* </div> *@
+                @* <p class="h6 h5-sm font-weight-bold mt-3 mt-md-4 pt-3  text-444">@Umbraco.GetDictionaryValue("Brand/Branch Name:")</p> *@
+                @* <div class="form-group"> *@
+                @*     <div> *@
+                @*         <div class="input-group input-group-lg"> *@
+                @*             <div class="input-group-prepend"> *@
+                @*                 <div class="input-group-text"> *@
+                @*                     <i class="far fa-copyright"></i> *@
+                @*                 </div> *@
+                @*             </div> *@
+                @*             <input class="form-control" placeholder="" maxlength="36" type="text" id="brand" name="brand"> *@
+                @*         </div> *@
+                @*         <small class="form-text text-muted">@Umbraco.GetDictionaryValue("Please enter your realy brand name.")</small> *@
+                @*     </div> *@
+                @* </div> *@
                 <p class="h6 h5-sm font-weight-bold mt-3 mt-md-4 pt-3  text-444">@Umbraco.GetDictionaryValue("Branch address:")</p>
                 <div class="form-group">
                     <div>
@@ -109,7 +104,7 @@
                                     <i class="fas fa-map-marker-alt"></i>
                                 </div>
                             </div>
-                            <input class="form-control" placeholder="" maxlength="36" type="text" id="brandAdress" name="brandAdress">
+                            <input class="form-control" placeholder="" maxlength="36" type="text" id="brandAddress" name="brandAddress">
                         </div>
                         <small class="form-text text-muted">@Umbraco.GetDictionaryValue("Please enter your realy brand adress.")</small>
                     </div>
@@ -123,7 +118,7 @@
                                     <i class="fas fa-city"></i>
                                 </div>
                             </div>
-                            <input class="form-control" placeholder="" maxlength="36" type="text" id="City" name="City">
+                            <input class="form-control" placeholder="" maxlength="36" type="text" id="city" name="city">
                         </div>
                         <small class="form-text text-muted">@Umbraco.GetDictionaryValue("Please enter your realy City")</small>
                     </div>
@@ -167,38 +162,75 @@
 
         return false;
     }
+    let companyName = document.querySelector("#companyName");
+    let brandAddress = document.querySelector("#brandAddress");
+    let city = document.querySelector("#city");
+
+    //if (!ValidateValues([companyName, companyNumber, brandName, brandAddress, city]))
+    //if (!ValidateValues([companyName, brandAddress, city]))
+    //        return;
+    const errorList = document.querySelector('.ListError');
+    const registerButton = document.getElementById('register');
+
+    // Функция для проверки заполненности полей
+    function validateForm() {
+        let isValid = true;
+        errorList.innerHTML = ''; // Очищаем предыдущие ошибки
+
+        // Проверяем поле "Company Name"
+        if (!companyName.value.trim()) {
+            errorList.innerHTML += '<li>Пожалуйста, введите название компании.</li>';
+            isValid = false;
+        }
+
+        // Проверяем поле "Branch Address"
+        if (!brandAddress.value.trim()) {
+            errorList.innerHTML += '<li>Пожалуйста, введите адрес филиала.</li>';
+            isValid = false;
+        }
+
+        // Проверяем поле "City"
+        if (!city.value.trim()) {
+            errorList.innerHTML += '<li>Пожалуйста, введите город.</li>';
+            isValid = false;
+        }
+
+        // Блокируем или разблокируем кнопку "Register"
+        registerButton.disabled = !isValid;
+
+        return isValid;
+    }
+
+    // Добавляем обработчики событий для проверки при изменении полей
+    companyName.addEventListener('input', validateForm);
+    brandAddress.addEventListener('input', validateForm);
+    city.addEventListener('input', validateForm);
+
+    // Изначально проверяем форму
+    validateForm();
     async function submitForm()
     {
-
+        let companyName = document.querySelector("#companyName");
+        let brandAddress = document.querySelector("#brandAddress");
+        let city = document.querySelector("#city");
        let today = new Date();
        let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 
        date += " " + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
        
-       let companyName = document.querySelector("#companyName");
-       let companyNumber = document.querySelector("#companyNumber");
-       let brandName = document.querySelector("#brand");
-       let brandAddress = document.querySelector("#brandAdress");
-       let city = document.querySelector("#City");
-       
-       if (!ValidateValues([companyName, companyNumber, brandName, brandAddress, city]))
-           return;
-       
+
        let data = 
        {
-           CompanyName : companyName.value,
-           CompanyNumber : companyNumber.value,
-           BrandName : brandName.value,
-           BrandAddress : brandAddress.value,
-           City : city.value,
-           ScheduleDateTime : date
+           CompanyName : document.querySelector("#companyName").value,
+           BrandAddress : document.querySelector("#brandAddress").value,
+           City : document.querySelector("#city").value,
        };
        // document.getElementById("frmJoin").submitForm();
        ShowProgress();
        
        setTimeout(async function () {
            
-           let resp = await fetch("/JoinBusiness/CreateCompany", 
+           let resp = await fetch("/JoinBusinessApi/CreateCompany", 
            {
                method : "POST",
                headers : 
@@ -210,11 +242,11 @@
                body : JSON.stringify(data)
            })
            
-           let apiResponse = await resp.json();
+           let apiResponse = await resp;
            
            if (resp.ok)
            {
-               await RedirectToCrm(apiResponse)
+               window.location.href = "/";
            }else
            {
                document.getElementById('form-valid').querySelector('ul').insertAdjacentHTML("beforeend", `<li>${apiResponse.resultMessage}</li>`);
@@ -284,9 +316,9 @@
         return objectParams.join("&");
     }
     $(document).ready(function () {
-        setInputFilter(document.getElementById("companyNumber"), function (value) {
-            return /^\d*$/.test(value) && value.length < 20;
-        });
+        //setInputFilter(document.getElementById("companyNumber"), function (value) {
+        //    return /^\d*$/.test(value) && value.length < 20;
+        //});
         $('#register').on('click', submitForm);
         $('#companyName').focus();
         

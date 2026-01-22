@@ -31,6 +31,21 @@ public class EnvironmentHelper
             return _businessApiConfiguration;
         }
     }
+    public static BusinessApi2Configuration _businessApi2Configuration;
+    public static BusinessApi2Configuration BusinessApi2Configuration
+    {
+        get
+        {
+            if (_businessApi2Configuration is null)
+            {
+                ConfigReader.ReadFromJsonConfig<BusinessApi2Configuration>(out var config);
+
+                _businessApi2Configuration = config;
+            }
+
+            return _businessApi2Configuration;
+        }
+    }
     public static SeoConfiguration _seoConfiguration;
     
     public static SeoConfiguration SeoConfiguration
