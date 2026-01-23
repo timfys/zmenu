@@ -212,48 +212,82 @@ public class JoinBusinessApiController : Controller
         var currentUser = Cooking.GetCookie<User>(Cooking.MainUserData);
 
         var client = config.InitClient();
-        client.Entity_Update(new Entity_UpdateRequest
-        {
-            ol_Password = config.ol_Password,
-            ol_Username = config.ol_UserName,
-            ol_EntityID = config.ol_EntityId,
-            EntityId = currentUser.Id,
-            NamesArray = new[]
-            {
-                "isBusiness",
-            },
-            ValuesArray = new[]
-            {
-                "1",
-            }
-        });
+        
         var businessId = JsonConvert.DeserializeObject<GeneralBusinessGetResponse>(client.General_Business_Get(new General_Business_GetRequest
         {
             ol_Password = currentUser.Password,
             ol_UserName = currentUser.Username,
             ol_EntityId = currentUser.Id,
-        }).@return.Replace("[","").Replace("]",""))?.BusinessId ?? 1;
-        client.General_Business_Update(new General_Business_UpdateRequest
-        {
-            ol_Password = config.ol_Password,
-            ol_Username = config.ol_UserName,
-            ol_EntityID = config.ol_EntityId,
-            BusinessId = businessId,
-            NamesArray = new[]
+        }).@return.Replace("[","").Replace("]",""))?.BusinessId;
+        // if (businessId != null)
+        // {
+        //     client.Entity_Update(new Entity_UpdateRequest
+        //     {
+        //         ol_Password = config.ol_Password,
+        //         ol_Username = config.ol_UserName,
+        //         ol_EntityID = config.ol_EntityId,
+        //         EntityId = currentUser.Id,
+        //         NamesArray = new[]
+        //         {
+        //             "isBusiness",
+        //         },
+        //         ValuesArray = new[]
+        //         {
+        //             "1",
+        //         }
+        //     });
+        //     client.General_Business_Update(new General_Business_UpdateRequest
+        //     {
+        //         ol_Password = config.ol_Password,
+        //         ol_Username = config.ol_UserName,
+        //         ol_EntityID = config.ol_EntityId,
+        //         BusinessId = businessId ?? 1,
+        //         NamesArray = new[]
+        //         {
+        //             "entityId",
+        //             "BusinessName",
+        //             "Address",
+        //             "City",
+        //         },
+        //         ValuesArray = new[]
+        //         {
+        //             $"{currentUser.Id}",
+        //             model.CompanyName,
+        //             model.BrandAddress,
+        //             model.City,
+        //         }
+        //     });
+        // }
+        // if (businessId == null)
+        // {
+            var resp1 = client.General_Business_Update(new General_Business_UpdateRequest
             {
-                "entityId",
-                "BusinessName",
-                "Address",
-                "City",
-            },
-            ValuesArray = new[]
-            {
-                $"{currentUser.Id}",
-                model.CompanyName,
-                model.BrandAddress,
-                model.City,
-            }
-        });
+                ol_Password = config.ol_Password,
+                ol_Username = config.ol_UserName,
+                ol_EntityID = config.ol_EntityId,
+                BusinessId = 0,
+                NamesArray = new[]
+                {
+                    "ein",
+                    "BusinessName",
+                    "Address",
+                    "City",
+                    "entityId",
+                    "CurrencyISO_default",
+                    "languagesISO"
+                },
+                ValuesArray = new[]
+                {
+                    $"{currentUser.Id}",
+                    model.CompanyName,
+                    model.BrandAddress,
+                    model.City,
+                    $"{currentUser.Id}",
+                    "ILS",
+                    "ILS"
+                }
+            });
+        //}
         return Ok();
     }
     
