@@ -79,7 +79,7 @@
                                                 <li class="menu-item">
                                                     @if (!subTitle.ToLower().Contains("pos for a restaurant"))
                                                     {
-                                                        <a href='@(UrlHelper.GetHostUrl())@(TranslationHelper.OverridePathWithCurrentCulture((string)childItem.Value("ChildUrl") ?? childItem.Url()))'>@subTitle</a>
+                                                        <a href='@(TranslationHelper.OverridePathWithCurrentCulture((string)childItem.Value("ChildUrl") ?? childItem.Url()))'>@subTitle</a>
                                                     }
                                                     else
                                                     {
