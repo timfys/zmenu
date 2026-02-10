@@ -1437,7 +1437,7 @@ a.nav-link.nav-link--black {
     font-size: 24px;
     font-weight: 900;
     margin-right: 40px;
-    color: #f4f4f0
+    color: #fff
 }
 
     .nav-link--home:hover {
@@ -1462,11 +1462,11 @@ a.nav-link.nav-link--black {
 }
 
 .section--sand {
-    background-color: #f4f4f0
+    background-color: #fff
 }
 
 .section--stroke-bottom {
-    border-bottom: 1px solid #f2f2f2
+    border-bottom: 1px solid #fff
 }
 
 .section--full-height {
@@ -1742,7 +1742,7 @@ body.frontpage .section__hero-content {
         }
 
         .blogposts-centered .blogpost + .blogpost {
-            border-top: 1px solid #f4f4f0
+            border-top: 1px solid #fff
         }
 
     .blogposts-centered .blogpost-title {
@@ -1767,7 +1767,7 @@ body.frontpage .section__hero-content {
     text-decoration: none;
     color: #000;
     display: block;
-    background: #f4f4f0;
+    background: #fff;
     margin-bottom: 30px
 }
 
@@ -1830,7 +1830,7 @@ p.testimonial-text {
 
 .employee-grid__item__details {
     padding: 30px;
-    background: #f4f4f0
+    background: #fff
 }
 
 .employee-grid__item__name {
@@ -2408,7 +2408,7 @@ article {
 .compat-msg {    
     color: #000;
     display: block;
-    background: #f4f4f0;
+    background: #fff;
     padding: 30px
 }
 

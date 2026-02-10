@@ -29,7 +29,7 @@
 .code .asp	{ background-color: #ffff00; }
 .code .html { color: #800000; }
 .code .attr { color: #ff0000; }
-.code .alt	{ background-color: #f4f4f4; }
+.code .alt	{ background-color: #fff; }
 .code .lnum	{ color: #606060; }
 
 /*[ XFN tags ]*/

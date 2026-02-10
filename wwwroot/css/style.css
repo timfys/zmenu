@@ -5926,7 +5926,7 @@ pre {
     .table-light td,
     .table-light thead th,
     .table-light tbody + tbody {
-        border-color: #f4f4f4;
+        border-color: #fff;
     }
 
 .table-hover .table-light:hover {
