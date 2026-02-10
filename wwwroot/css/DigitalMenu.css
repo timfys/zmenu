@@ -26,7 +26,7 @@ body .header_elements {
   position: fixed;
   background-color: white;
   z-index: 100;
-  border-bottom: 4px solid #f6f6f6;
+  border-bottom: 4px solid #fff;
 }
 body .header_elements .lang_choose {
   height: fit-content;
@@ -53,7 +53,7 @@ body .digital_menu_body_wrapper {
   position: relative;
   padding: 0 100px;
   z-index: 1;
-  background-color: #f6f6f6;
+  background-color: #fff;
   height: fit-content;
 }
 body .digital_menu_body_wrapper .digital_menu_body_content {

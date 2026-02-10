@@ -10,13 +10,13 @@ body {
 }
 
     body section {
-        background-color: #F4F4F5;
+        background-color: #fff;
     }
 
 section.solution,
 section.performance,
 section.download {
-    background-color: #F4F4F5;
+    background-color: #fff;
 }
 /* i font awesome*/
 i.fa, i.fab, i.far, i.fas {
@@ -120,7 +120,7 @@ h2 {
 }
 
 #toTopBtn {
-    background-color: lightgray !important;
+    background-color: white !important;
 }
 
 /* text color */
@@ -764,7 +764,7 @@ h2 {
     z-index: 1; /* Stay on top */
     top: 0; /* Stay at the top */
     right: 0;
-    background-color: #f6f6f6; /* Black*/
+    background-color: #fff; /* Black*/
     overflow-x: hidden; /* Disable horizontal scroll */
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
     z-index: 1300;

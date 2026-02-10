@@ -135,6 +135,7 @@ namespace Menu4Tech
             app.UseDetection();
             app.UseRouting();
             app.UseNotyf();
+            
             app.UseUmbraco()
                 .WithMiddleware(u =>
                 {
@@ -147,6 +148,14 @@ namespace Menu4Tech
                     u.UseBackOfficeEndpoints();
                     u.UseWebsiteEndpoints();
                 });
+            app.UseWhen(
+                context => !context.Request.Path.StartsWithSegments("/blog/en"),
+                appBuilder => appBuilder.UseUmbraco() // или другой middleware Umbraco
+            );
+            app.Map("/blog/en", blogApp =>
+            {
+                // Здесь Umbraco не будет обрабатывать запросы, они передадутся в BlogEngine.NET
+            });
         }
     }
 }

@@ -35,7 +35,7 @@
     <None Include="wwwroot\assets\css\bootstrap-reboot.css.map" />
     <None Include="wwwroot\assets\css\bootstrap-reboot.min.css" />
     <None Include="wwwroot\assets\css\bootstrap-reboot.min.css.map" />
-    <None Include="wwwroot\assets\css\bootstrap.css" />
+    <None Include="wwwroot\assets\css\bootstrap.css?v=2" />
     <None Include="wwwroot\assets\css\bootstrap.css.map" />
     <None Include="wwwroot\assets\css\bootstrap.min.css" />
     <None Include="wwwroot\assets\css\bootstrap.min.css.map" />

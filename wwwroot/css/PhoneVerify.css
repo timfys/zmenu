@@ -2207,7 +2207,7 @@ body.rtl .post-a-job .steps-navigation i.fa-arrow-right, body.rtl .post-a-job .s
 }
 
 .wizard.post-a-job .categories-of-interest .row:nth-child(odd) {
-    background: #f6f6f6
+    background: #fff
 }
 
 .wizard.post-a-job .categories-of-interest .row button.remove {
@@ -3054,7 +3054,7 @@ body.rtl .medals-alone {
 }
 
 .settings .categories-of-interest .row:nth-child(odd) {
-    background: #f6f6f6
+    background: #fff
 }
 
 .settings .categories-of-interest .row button.remove {
@@ -3175,7 +3175,7 @@ body.rtl .medals-alone {
     }
 
 .settings .notif-settings .tit {
-    background: #f6f6f6
+    background: #fff
 }
 
 .demo-gallery ul li {
@@ -6551,7 +6551,7 @@ body.rtl.startAjob2 {
 }
 
 .wizard.post-a-job .categories-of-interest .row:nth-child(odd) {
-    background: #f6f6f6
+    background: #fff
 }
 
 .wizard.post-a-job .categories-of-interest .row button.remove {
@@ -7459,7 +7459,7 @@ body.rtl .medals-alone {
 }
 
 .settings .categories-of-interest .row:nth-child(odd) {
-    background: #f6f6f6
+    background: #fff
 }
 
 .settings .categories-of-interest .row button.remove {
@@ -7580,7 +7580,7 @@ body.rtl .medals-alone {
     }
 
 .settings .notif-settings .tit {
-    background: #f6f6f6
+    background: #fff
 }
 
 .demo-gallery ul li {
@@ -8591,7 +8591,7 @@ body.rtl .job-done-wizard .post-a-job-box .fa-arrow-circle-right, body.rtl .job-
     }
 
     .settings .notif-settings .row {
-        border-bottom: 1px solid #f6f6f6
+        border-bottom: 1px solid #fff
     }
 
         .settings .notif-settings .row:last-child {
