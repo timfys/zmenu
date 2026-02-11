@@ -32,7 +32,8 @@
     var currentUser = Cooking.GetCookie<User>(Cooking.MainUserData);
     var lid = currentUser != null ? UserManager.Login(currentUser?.Username, currentUser?.Password).Lid : "";
     var crmOpenPage = $"https://crm.zmenu.net/restaurant/{langForCrm}/menus?lid={lid}";
-    if(!url.ToString().Contains("JoinBusiness") && currentUser != null && UserManager.Login2(currentUser?.Username, currentUser?.Password).isBusiness == 0) Context.Response.Redirect("/JoinBusiness");
+    if(!url.ToString().Contains("JoinBusiness") && currentUser != null && UserManager.Login2(currentUser?.Username, currentUser?.Password).isBusiness == 0)
+        Context.Response.Redirect("/JoinBusiness");
 }
 
 

@@ -75,7 +75,6 @@ public class JoinBusinessApiController : Controller
                 Mobile = model.Mobile,
                 PhonePrefix = model.PhonePrefix
             });
-            
             Response.Headers.Add("Location", TranslationHelper.OverridePathWithCurrentCulture("/JoinBusiness/Verification"));
             return Ok();
         }
@@ -113,8 +112,12 @@ public class JoinBusinessApiController : Controller
         existingUser.Lid = loginResponse.Lid;
         
         Cooking.SetCookie(Cooking.MainUserData, existingUser);
-        
-        Response.Headers.Add("Location", TranslationHelper.OverridePathWithCurrentCulture("/"));
+        var currentUser = Cooking.GetCookie<User>(Cooking.MainUserData);
+        var lid = currentUser != null ? UserManager.Login(currentUser?.Username, currentUser?.Password).Lid : "";
+        var currentLanguage = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
+        var langForCrm = currentLanguage == "en" ? "en" : $"/{currentLanguage}";
+        var crmOpenPage = $"https://crm.zmenu.net/restaurant/{langForCrm}/menus?lid={lid}";
+        Response.Headers.Add("Location", TranslationHelper.OverridePathWithCurrentCulture(crmOpenPage));
         return Ok();
     }
     
@@ -143,8 +146,12 @@ public class JoinBusinessApiController : Controller
         existingUser.Lid = loginResponse.Lid;
         
         Cooking.SetCookie(Cooking.MainUserData, existingUser);
-        
-        Response.Headers.Add("Location", TranslationHelper.OverridePathWithCurrentCulture("/"));
+        var currentUser = Cooking.GetCookie<User>(Cooking.MainUserData);
+        var lid = currentUser != null ? UserManager.Login(currentUser?.Username, currentUser?.Password).Lid : "";
+        var currentLanguage = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
+        var langForCrm = currentLanguage == "en" ? "en" : $"/{currentLanguage}";
+        var crmOpenPage = $"https://crm.zmenu.net/restaurant/{langForCrm}/menus?lid={lid}";
+        Response.Headers.Add("Location", TranslationHelper.OverridePathWithCurrentCulture(crmOpenPage));
         return Ok();
     }
     
@@ -200,7 +207,12 @@ public class JoinBusinessApiController : Controller
             return BadRequest(TranslationHelper.GetTranslatedMessage("We have encountered a problem trying to change password"));
 
         Cooking.SetCookie(Cooking.MainUserData, existingUser);
-        Response.Headers.Add("Location", TranslationHelper.OverridePathWithCurrentCulture("/"));
+        var currentUser = Cooking.GetCookie<User>(Cooking.MainUserData);
+        var lid = currentUser != null ? UserManager.Login(currentUser?.Username, currentUser?.Password).Lid : "";
+        var currentLanguage = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
+        var langForCrm = currentLanguage == "en" ? "en" : $"/{currentLanguage}";
+        var crmOpenPage = $"https://crm.zmenu.net/restaurant/{langForCrm}/menus?lid={lid}";
+        Response.Headers.Add("Location", TranslationHelper.OverridePathWithCurrentCulture(crmOpenPage));
         return Ok(TranslationHelper.GetTranslatedMessage("Password have been changed"));
     }
 

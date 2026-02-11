@@ -40,8 +40,8 @@
     <None Include="wwwroot\assets\css\bootstrap.min.css" />
     <None Include="wwwroot\assets\css\bootstrap.min.css.map" />
     <None Include="wwwroot\assets\css\custom-blog.css" />
-    <None Include="wwwroot\assets\css\Custom.css" />
-    <None Include="wwwroot\assets\css\style-theme.css" />
+    <None Include="wwwroot\assets\css\Custom.css?v=2" />
+    <None Include="wwwroot\assets\css\style-theme.css?v=2" />
     <None Include="wwwroot\assets\img\logo.jpg" />
     <None Include="wwwroot\assets\js\all.js" />
     <None Include="wwwroot\assets\js\bootstrap.bundle.js" />
@@ -65,7 +65,7 @@
     <None Include="wwwroot\Content\images\ajax-loader.gif" />
     <None Include="wwwroot\Content\images\ajax-loader_orange.gif" />
     <None Include="wwwroot\Content\images\Rolling-1s-200px.gif" />
-    <None Include="wwwroot\Content\Site.css" />
+    <None Include="wwwroot\Content\Site.css?v=2" />
     <None Include="wwwroot\media\Web.config" />
     <None Include="wwwroot\Scripts\app.js" />
     <None Include="wwwroot\Scripts\bootstrap-datetimepicker.min.js" />

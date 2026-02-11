@@ -21,7 +21,9 @@
     {
         cssRTL = "rtl--label";
     }
-
+    var lid = currentUser != null ? UserManager.Login(currentUser?.Username, currentUser?.Password).Lid : "";
+    var langForCrm = currentLanguage == "en" ? "en" : $"/{currentLanguage}";
+    var crmOpenPage = $"https://crm.zmenu.net/restaurant/{langForCrm}/menus?lid={lid}";
 }
 
 
@@ -246,7 +248,7 @@
            
            if (resp.ok)
            {
-               window.location.href = "/";
+               window.location.href = "@crmOpenPage";
            }else
            {
                document.getElementById('form-valid').querySelector('ul').insertAdjacentHTML("beforeend", `<li>${apiResponse.resultMessage}</li>`);
