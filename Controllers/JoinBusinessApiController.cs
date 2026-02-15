@@ -272,6 +272,21 @@ public class JoinBusinessApiController : Controller
         // }
         // if (businessId == null)
         // {
+        client.Entity_Update(new Entity_UpdateRequest
+        {
+            ol_Password = config.ol_Password,
+            ol_Username = config.ol_UserName,
+            ol_EntityID = config.ol_EntityId,
+            EntityId = currentUser.Id,
+            NamesArray = new[]
+            {
+                "Company",
+            },
+            ValuesArray = new[]
+            {
+                model.CompanyName,
+            }
+        });
             var resp1 = client.General_Business_Update(new General_Business_UpdateRequest
             {
                 ol_Password = config.ol_Password,
